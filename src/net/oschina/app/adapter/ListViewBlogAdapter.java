@@ -2,7 +2,7 @@ package net.oschina.app.adapter;
 
 import java.util.List;
 
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.bean.Blog;
 import net.oschina.app.bean.BlogList;
 import net.oschina.app.common.StringUtils;

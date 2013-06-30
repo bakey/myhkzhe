@@ -18,8 +18,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
 /**
- * å¼‚æ­¥çº¿ç¨‹åŠ è½½å›¾ç‰‡å·¥å…·ç±»
- * ä½¿ç”¨è¯´æ˜Žï¼š
+ * Òì²½Ïß³Ì¼ÓÔØÍ¼Æ¬¹¤¾ßÀà
+ * Ê¹ÓÃËµÃ÷£º
  * BitmapManager bmpManager;
  * bmpManager = new BitmapManager(BitmapFactory.decodeResource(context.getResources(), R.drawable.loading));
  * bmpManager.loadBitmap(imageURL, imageView);
@@ -36,7 +36,7 @@ public class BitmapManager {
     
     static {  
         cache = new HashMap<String, SoftReference<Bitmap>>();  
-        pool = Executors.newFixedThreadPool(5);  //å›ºå®šçº¿ç¨‹æ± 
+        pool = Executors.newFixedThreadPool(5);  //¹Ì¶¨Ïß³Ì³Ø
         imageViews = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     }  
     
@@ -47,7 +47,7 @@ public class BitmapManager {
     }
     
     /**
-     * è®¾ç½®é»˜è®¤å›¾ç‰‡
+     * ÉèÖÃÄ¬ÈÏÍ¼Æ¬
      * @param bmp
      */
     public void setDefaultBmp(Bitmap bmp) {  
@@ -55,7 +55,7 @@ public class BitmapManager {
     }   
   
     /**
-     * åŠ è½½å›¾ç‰‡
+     * ¼ÓÔØÍ¼Æ¬
      * @param url
      * @param imageView
      */
@@ -64,7 +64,7 @@ public class BitmapManager {
     }
 	
     /**
-     * åŠ è½½å›¾ç‰‡-å¯è®¾ç½®åŠ è½½å¤±è´¥åŽæ˜¾ç¤ºçš„é»˜è®¤å›¾ç‰‡
+     * ¼ÓÔØÍ¼Æ¬-¿ÉÉèÖÃ¼ÓÔØÊ§°ÜºóÏÔÊ¾µÄÄ¬ÈÏÍ¼Æ¬
      * @param url
      * @param imageView
      * @param defaultBmp
@@ -74,7 +74,7 @@ public class BitmapManager {
     }
     
     /**
-     * åŠ è½½å›¾ç‰‡-å¯æŒ‡å®šæ˜¾ç¤ºå›¾ç‰‡çš„é«˜å®½
+     * ¼ÓÔØÍ¼Æ¬-¿ÉÖ¸¶¨ÏÔÊ¾Í¼Æ¬µÄ¸ß¿í
      * @param url
      * @param imageView
      * @param width
@@ -85,19 +85,19 @@ public class BitmapManager {
         Bitmap bitmap = getBitmapFromCache(url);  
    
         if (bitmap != null) {  
-			//æ˜¾ç¤ºç¼“å­˜å›¾ç‰‡
+			//ÏÔÊ¾»º´æÍ¼Æ¬
             imageView.setImageBitmap(bitmap);  
         } else {  
-        	//åŠ è½½SDå¡ä¸­çš„å›¾ç‰‡ç¼“å­˜
+        	//¼ÓÔØSD¿¨ÖÐµÄÍ¼Æ¬»º´æ
         	String filename = FileUtils.getFileName(url);
         	String filepath = imageView.getContext().getFilesDir() + File.separator + filename;
     		File file = new File(filepath);
     		if(file.exists()){
-				//æ˜¾ç¤ºSDå¡ä¸­çš„å›¾ç‰‡ç¼“å­˜
+				//ÏÔÊ¾SD¿¨ÖÐµÄÍ¼Æ¬»º´æ
     			Bitmap bmp = ImageUtils.getBitmap(imageView.getContext(), filename);
         		imageView.setImageBitmap(bmp);
         	}else{
-				//çº¿ç¨‹åŠ è½½ç½‘ç»œå›¾ç‰‡
+				//Ïß³Ì¼ÓÔØÍøÂçÍ¼Æ¬
         		imageView.setImageBitmap(defaultBmp);
         		queueJob(url, imageView, width, height);
         	}
@@ -105,7 +105,7 @@ public class BitmapManager {
     }  
   
     /**
-     * ä»Žç¼“å­˜ä¸­èŽ·å–å›¾ç‰‡
+     * ´Ó»º´æÖÐ»ñÈ¡Í¼Æ¬
      * @param url
      */
     public Bitmap getBitmapFromCache(String url) {  
@@ -117,7 +117,7 @@ public class BitmapManager {
     }  
     
     /**
-     * ä»Žç½‘ç»œä¸­åŠ è½½å›¾ç‰‡
+     * ´ÓÍøÂçÖÐ¼ÓÔØÍ¼Æ¬
      * @param url
      * @param imageView
      * @param width
@@ -132,7 +132,7 @@ public class BitmapManager {
                     if (msg.obj != null) {  
                         imageView.setImageBitmap((Bitmap) msg.obj);  
                         try {
-                        	//å‘SDå¡ä¸­å†™å…¥å›¾ç‰‡ç¼“å­˜
+                        	//ÏòSD¿¨ÖÐÐ´ÈëÍ¼Æ¬»º´æ
 							ImageUtils.saveImage(imageView.getContext(), FileUtils.getFileName(url), (Bitmap) msg.obj);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -152,7 +152,7 @@ public class BitmapManager {
     } 
   
     /**
-     * ä¸‹è½½å›¾ç‰‡-å¯æŒ‡å®šæ˜¾ç¤ºå›¾ç‰‡çš„é«˜å®½
+     * ÏÂÔØÍ¼Æ¬-¿ÉÖ¸¶¨ÏÔÊ¾Í¼Æ¬µÄ¸ß¿í
      * @param url
      * @param width
      * @param height
@@ -160,13 +160,13 @@ public class BitmapManager {
     private Bitmap downloadBitmap(String url, int width, int height) {   
         Bitmap bitmap = null;
         try {
-			//httpåŠ è½½å›¾ç‰‡
+			//http¼ÓÔØÍ¼Æ¬
 			bitmap = ApiClient.getNetBitmap(url);
 			if(width > 0 && height > 0) {
-				//æŒ‡å®šæ˜¾ç¤ºå›¾ç‰‡çš„é«˜å®½
+				//Ö¸¶¨ÏÔÊ¾Í¼Æ¬µÄ¸ß¿í
 				bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
 			} 
-			//æ”¾å…¥ç¼“å­˜
+			//·ÅÈë»º´æ
 			cache.put(url, new SoftReference<Bitmap>(bitmap));
 		} catch (AppException e) {
 			e.printStackTrace();

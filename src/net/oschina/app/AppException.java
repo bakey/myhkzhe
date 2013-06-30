@@ -11,23 +11,21 @@ import java.util.Date;
 
 import org.apache.commons.httpclient.HttpException;
 
-import com.hkzhe.wwtt.R;
-
 import android.content.Context;
 import android.os.Environment;
 import android.widget.Toast;
-
+import com.hkzhe.app.R;
 /**
- * åº”ç”¨ç¨‹åºå¼‚å¸¸ç±»ï¼šç”¨äºæ•è·å¼‚å¸¸å’Œæç¤ºé”™è¯¯ä¿¡æ¯
+ * Ó¦ÓÃ³ÌĞòÒì³£Àà£ºÓÃÓÚ²¶»ñÒì³£ºÍÌáÊ¾´íÎóĞÅÏ¢
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
  */
 public class AppException extends Exception {
 
-	private final static boolean Debug = false;//æ˜¯å¦ä¿å­˜é”™è¯¯æ—¥å¿—
+	private final static boolean Debug = false;//ÊÇ·ñ±£´æ´íÎóÈÕÖ¾
 	
-	/** å®šä¹‰å¼‚å¸¸ç±»å‹ */
+	/** ¶¨ÒåÒì³£ÀàĞÍ */
 	public final static byte TYPE_NETWORK 	= 0x01;
 	public final static byte TYPE_SOCKET	= 0x02;
 	public final static byte TYPE_HTTP_CODE	= 0x03;
@@ -55,7 +53,7 @@ public class AppException extends Exception {
 	}
 	
 	/**
-	 * æç¤ºå‹å¥½çš„é”™è¯¯ä¿¡æ¯
+	 * ÌáÊ¾ÓÑºÃµÄ´íÎóĞÅÏ¢
 	 * @param ctx
 	 */
 	public void makeToast(Context ctx){
@@ -86,7 +84,7 @@ public class AppException extends Exception {
 	}
 	
 	/**
-	 * ä¿å­˜å¼‚å¸¸æ—¥å¿—
+	 * ±£´æÒì³£ÈÕÖ¾
 	 * @param excp
 	 */
 	public void saveErrorLog(Exception excp) {
@@ -96,7 +94,7 @@ public class AppException extends Exception {
 		FileWriter fw = null;
 		PrintWriter pw = null;
 		try {
-			//åˆ¤æ–­æ˜¯å¦æŒ‚è½½äº†SDå¡
+			//ÅĞ¶ÏÊÇ·ñ¹ÒÔØÁËSD¿¨
 			String storageState = Environment.getExternalStorageState();		
 			if(storageState.equals(Environment.MEDIA_MOUNTED)){
 				savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/OSChina/Log/";
@@ -106,7 +104,7 @@ public class AppException extends Exception {
 				}
 				logFilePath = savePath + errorlog;
 			}
-			//æ²¡æœ‰æŒ‚è½½SDå¡ï¼Œæ— æ³•å†™æ–‡ä»¶
+			//Ã»ÓĞ¹ÒÔØSD¿¨£¬ÎŞ·¨Ğ´ÎÄ¼ş
 			if(logFilePath == ""){
 				return;
 			}

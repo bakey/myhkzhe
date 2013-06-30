@@ -1,6 +1,6 @@
 package net.oschina.app.ui;
 
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.common.StringUtils;
 import net.oschina.app.common.UIHelper;
 import android.app.Activity;
@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 /**
- * é–»î–ŒåŠé©æ¶¢å´£å®¥å¤˜æ¹†
+ * ÓÃ»§·´À¡
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -31,8 +31,8 @@ public class FeedBack extends Activity{
 		this.initView();
 	}
 	
-	//é–¸æ“ç¹‚é¡¬å©‡å´ éî„‰ç€°é–¸ãƒ§å“ç”¯èˆµç¦’é”Ÿï¿½ 
-	private void initView()
+	//³õÊ¼»¯ÊÓÍ¼¿Ø¼ş
+    private void initView()
     {
     	mClose = (ImageButton)findViewById(R.id.feedback_close_button);
     	mEditer = (EditText)findViewById(R.id.feedback_content);
@@ -47,14 +47,15 @@ public class FeedBack extends Activity{
 			String content = mEditer.getText().toString();
 			
 			if(StringUtils.isEmpty(content)) {
-				UIHelper.ToastMessage(v.getContext(), "é–¸æ¬ç§¹é¡ªå±¾ç©±éˆ©å†§ç´–å¨‘æ’³ç§·éæ¨»ç¨‰é“å…‰æ•„");
+				UIHelper.ToastMessage(v.getContext(), "·´À¡ĞÅÏ¢²»ÄÜÎª¿Õ");
 				return;
 			}
 			
 			Intent i = new Intent(Intent.ACTION_SEND);  
-			//i.setType("text/plain"); //æ¿¡îˆ—å‰ç€šæ¬“å´³é”Ÿï¿½			i.setType("message/rfc822") ; //é–»î†å–å©§ï¿½
+			//i.setType("text/plain"); //Ä£ÄâÆ÷
+			i.setType("message/rfc822") ; //Õæ»ú
 			i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ld@oschina.net"});  
-			i.putExtra(Intent.EXTRA_SUBJECT,"é–»î–ŒåŠé©æ¶¢å´£å®¥å¤˜æ¹†-Androidéå¹¿åºé©æ¶šç²©é”Ÿï¿½");  
+			i.putExtra(Intent.EXTRA_SUBJECT,"ÓÃ»§·´À¡-Android¿Í»§¶Ë");  
 			i.putExtra(Intent.EXTRA_TEXT,content);  
 			startActivity(Intent.createChooser(i, "Sending mail..."));
 			finish();

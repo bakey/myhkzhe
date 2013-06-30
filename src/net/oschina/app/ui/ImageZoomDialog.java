@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import net.oschina.app.AppException;
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.api.ApiClient;
 import net.oschina.app.common.FileUtils;
 import net.oschina.app.common.ImageUtils;
@@ -30,7 +30,7 @@ import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 /**
- * é¥å‰§å¢–ç¼‚â•‚æ–ç€µç¡…ç˜½å¦—ï¿½
+ * Í¼Æ¬Ëõ·Å¶Ô»°¿ò
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -53,16 +53,16 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 	private float scaleHeight = 1;
 	private Bitmap bitmap, zoomedBMP;
 	private int zoom_level = 0;
-	private static final double ZOOM_IN_SCALE = 1.25;// é€æƒ§ã‡ç»¯ç»˜æšŸ
-	private static final double ZOOM_OUT_SCALE = 0.8;// ç¼‚â•çš¬ç»¯ç»˜æšŸ
+	private static final double ZOOM_IN_SCALE = 1.25;// ·Å´óÏµÊı
+	private static final double ZOOM_OUT_SCALE = 0.8;// ËõĞ¡ÏµÊı
 	
-    float minScaleR;// éˆï¿½çš¬ç¼‚â•‚æ–å§£æ–¾ç·¥
-    static final float MAX_SCALE = 4f;// éˆï¿½ã‡ç¼‚â•‚æ–å§£æ–¾ç·¥
+    float minScaleR;// ×îĞ¡Ëõ·Å±ÈÀı
+    static final float MAX_SCALE = 4f;// ×î´óËõ·Å±ÈÀı
 	
 	// We can be in one of these 3 states
-	static final int NONE = 0;// é’æ¿†îŠé˜èˆµï¿½
-	static final int DRAG = 1;// é·æ §å§©
-	static final int ZOOM = 2;// ç¼‚â•‚æ–
+	static final int NONE = 0;// ³õÊ¼×´Ì¬
+	static final int DRAG = 1;// ÍÏ¶¯
+	static final int ZOOM = 2;// Ëõ·Å
 	int mode = NONE;
 
 	@Override
@@ -77,15 +77,15 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 	private void initView()
     {
 		dm = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(dm);// é‘¾å³°å½‡é’å—šé²¸éœï¿½
+		getWindowManager().getDefaultDisplay().getMetrics(dm);// »ñÈ¡·Ö±æÂÊ
 		
-		//zoomIn = (Button) findViewById(R.id.zoom_in);// é€æƒ§ã‡é¸å¤æŒ³
-		//zoomOut = (Button) findViewById(R.id.zoom_out);// ç¼‚â•çš¬é¸å¤æŒ³
+		//zoomIn = (Button) findViewById(R.id.zoom_in);// ·Å´ó°´Å¥
+		//zoomOut = (Button) findViewById(R.id.zoom_out);// ËõĞ¡°´Å¥
 		//zoomIn.setOnClickListener(this);
 		//zoomOut.setOnClickListener(this);
 		
 		imgView = (ImageView) findViewById(R.id.imagezoomdialog_image);
-		imgView.setOnTouchListener(this);// ç’å‰§ç–†ç‘™ï¹€ç†é©æˆæƒ‰
+		imgView.setOnTouchListener(this);// ÉèÖÃ´¥ÆÁ¼àÌı
 		
 		mViewSwitcher = (ViewSwitcher)findViewById(R.id.imagezoomdialog_view_switcher); 
     } 
@@ -99,8 +99,8 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 				if(msg.what==1 && msg.obj != null){
 					bitmap = (Bitmap)msg.obj;
 					imgView.setImageBitmap(bitmap);
-					minZoom();// ç’ï¼„ç•»éˆï¿½çš¬ç¼‚â•‚æ–å§£ï¿½
-					CheckView();// ç’å‰§ç–†é¥æƒ§å„šçå‘¬è…‘
+					minZoom();// ¼ÆËã×îĞ¡Ëõ·Å±È
+					CheckView();// ÉèÖÃÍ¼Ïñ¾ÓÖĞ
 					imgView.setImageMatrix(matrix);
 					mViewSwitcher.showNext();
 				}else{
@@ -115,13 +115,13 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 				Bitmap bmp = null;
 		    	String filename = FileUtils.getFileName(imgURL);
 				try {
-					//ç’‡è¯²å½‡éˆî„€æ¹´é¥å‰§å¢–
+					//¶ÁÈ¡±¾µØÍ¼Æ¬
 					if(imgURL.endsWith("portrait.gif") || StringUtils.isEmpty(imgURL)){
 						bmp = BitmapFactory.decodeResource(imgView.getResources(), R.drawable.widget_dface);
 					}
 					if(bmp == null){
-						//é„îˆšæƒéˆå¤Œç´¦ç€›æ¨ºæµ˜é—ï¿½
-				    	//Environment.getExternalStorageDirectory();æ©æ–¿æ´–/sdcard
+						//ÊÇ·ñÓĞ»º´æÍ¼Æ¬
+				    	//Environment.getExternalStorageDirectory();·µ»Ø/sdcard
 				    	String filepath = getFilesDir() + File.separator + filename;
 						File file = new File(filepath);
 						if(file.exists()){
@@ -132,12 +132,12 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 						bmp = ApiClient.getNetBitmap(imgURL);
 						if(bmp != null){
 							try {
-		                    	//éæ¬æµ˜é—å›©ç´¦ç€›ï¿½
+		                    	//Ğ´Í¼Æ¬»º´æ
 								ImageUtils.saveImage(imgView.getContext(), filename, bmp);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
-							//ç¼‚â•‚æ–é¥å‰§å¢–
+							//Ëõ·ÅÍ¼Æ¬
 							bmp = ImageUtils.reDrawBitMap(ImageZoomDialog.this, bmp);
 						}
 					}
@@ -159,14 +159,14 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 
 		// Handle touch events here...
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
-		// ç’å‰§ç–†é·æ ¨åªºå¦¯â€³ç´¡(æ¶“è¤å£)
+		// ÉèÖÃÍÏÀ­Ä£Ê½(Ö÷µã)
 		case MotionEvent.ACTION_DOWN:
 			savedMatrix.set(matrix);
 			start.set(event.getX(), event.getY());
 			//Log.d(TAG, "mode=DRAG");
 			mode = DRAG;
 			break;
-		// ç’å‰§ç–†æ¾¶æ°±å£ç‘™ï¸½æ‡œå¦¯â€³ç´¡(é“îˆœå£)
+		// ÉèÖÃ¶àµã´¥ÃşÄ£Ê½(¸±µã)
 		case MotionEvent.ACTION_POINTER_DOWN:
 				oldDist = spacing(event);
 				//Log.d(TAG, "oldDist=" + oldDist);
@@ -182,21 +182,21 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 			mode = NONE;
 			//Log.d(TAG, "mode=NONE");
 			break;
-		// é‘»ãƒ¤è´ŸDRAGå¦¯â€³ç´¡é”›å±½å¯éç‘°åš®ç»‰è¯²å§©é¥å‰§å¢–
+		// ÈôÎªDRAGÄ£Ê½£¬Ôòµã»÷ÒÆ¶¯Í¼Æ¬
 		case MotionEvent.ACTION_MOVE:
 			if (mode == DRAG) {
 				matrix.set(savedMatrix);
-				// ç’å‰§ç–†æµ£å¶‡Ğ©
+				// ÉèÖÃÎ»ÒÆ
 				matrix.postTranslate(event.getX() - start.x, event.getY() - start.y);
 			}
-			// é‘»ãƒ¤è´ŸZOOMå¦¯â€³ç´¡é”›å±½å¯æ¾¶æ°±å£ç‘™ï¸½æ‡œç¼‚â•‚æ–
+			// ÈôÎªZOOMÄ£Ê½£¬Ôò¶àµã´¥ÃşËõ·Å
 			else if (mode == ZOOM) {
 				float newDist = spacing(event);
 				//Log.d(TAG, "newDist=" + newDist);
 				if (newDist > 10f) {
 					matrix.set(savedMatrix);
 					float scale = newDist / oldDist;
-					// ç’å‰§ç–†ç¼‚â•‚æ–å§£æ–¾ç·¥éœå±½æµ˜é—å›¦è…‘éé€›ç¶…ç¼ƒï¿½
+					// ÉèÖÃËõ·Å±ÈÀıºÍÍ¼Æ¬ÖĞµãÎ»ÖÃ
 					matrix.postScale(scale, scale, mid.x, mid.y);
 				}
 			}
@@ -210,7 +210,7 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 	}
 
     /**
-     * é—„æ„¬åŸ—éˆï¿½ã‡éˆï¿½çš¬ç¼‚â•‚æ–å§£æ–¾ç·¥é”›å²ƒåšœé”ã„¥çœ³æ¶“ï¿½
+     * ÏŞÖÆ×î´ó×îĞ¡Ëõ·Å±ÈÀı£¬×Ô¶¯¾ÓÖĞ
      */
     private void CheckView() {
         float p[] = new float[9];
@@ -227,7 +227,7 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
     }
 
     /**
-     * éˆï¿½çš¬ç¼‚â•‚æ–å§£æ–¾ç·¥é”›å±¾æ¸¶æ¾¶Ñ‚è´Ÿ100%
+     * ×îĞ¡Ëõ·Å±ÈÀı£¬×î´óÎª100%
      */
     private void minZoom() {
 //        minScaleR = Math.min(
@@ -248,7 +248,7 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
     }
 
     /**
-     * å¦¯î„æ‚œéŠ†ä½ºæ—±éšæˆçœ³æ¶“ï¿½
+     * ºáÏò¡¢×İÏò¾ÓÖĞ
      */
     protected void center(boolean horizontal, boolean vertical) {
         Matrix m = new Matrix();
@@ -262,7 +262,7 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
         float deltaX = 0, deltaY = 0;
 
         if (vertical) {
-            // é¥å‰§å¢–çå¿ç°¬çå¿“ç®·æ¾¶Ñƒçš¬é”›å±½å¯çå‘¬è…‘é„å‰§ãšéŠ†å‚šã‡æµœåº¡ç†éªæ›ªç´æ¶“å©ƒæŸŸé£æ¬‘â”–é’æ¬ç·šæ¶“å©„Ğ©é”›å±¼ç¬…é‚åœ­æš€ç»Œå“„å¯å¯°ï¿½ç¬…ç»‰ï¿½
+            // Í¼Æ¬Ğ¡ÓÚÆÁÄ»´óĞ¡£¬Ôò¾ÓÖĞÏÔÊ¾¡£´óÓÚÆÁÄ»£¬ÉÏ·½Áô¿ÕÔòÍùÉÏÒÆ£¬ÏÂ·½Áô¿ÕÔòÍùÏÂÒÆ
             int screenHeight = dm.heightPixels;
             if (height < screenHeight) {
                 deltaY = (screenHeight - height) / 2 - rect.top;
@@ -286,21 +286,21 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
         matrix.postTranslate(deltaX, deltaY);
     }
 	
-	// ç’ï¼„ç•»ç»‰è¯²å§©ç’ºæ¿ˆîœ§
+	// ¼ÆËãÒÆ¶¯¾àÀë
 	private float spacing(MotionEvent event) {
 		float x = event.getX(0) - event.getX(1);
 		float y = event.getY(0) - event.getY(1);
 		return FloatMath.sqrt(x * x + y * y);
 	}
 
-	// ç’ï¼„ç•»æ¶“î… å£æµ£å¶‡ç–†
+	// ¼ÆËãÖĞµãÎ»ÖÃ
 	private void midPoint(PointF point, MotionEvent event) {
 		float x = event.getX(0) + event.getX(1);
 		float y = event.getY(0) + event.getY(1);
 		point.set(x / 2, y / 2);
 	}
 
-	// é€æƒ§ã‡é”›å²€ç¼‰çå¿”å¯œé–½î†¾å£é‘è®³ç°¨æµ ï¿½
+	// ·Å´ó£¬ËõĞ¡°´Å¥µã»÷ÊÂ¼ş
 	//@Override
 	public void onClick(View v) {
 		if (v == zoomIn) {
@@ -310,7 +310,7 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 		}
 	}
 
-	// é¸å¤æŒ³éç‘°åš®ç¼‚â•çš¬é‘èŠ¥æšŸ
+	// °´Å¥µã»÷ËõĞ¡º¯Êı
 	private void small() {
 		int bmpWidth = bitmap.getWidth();
 		int bmpHeight = bitmap.getHeight();
@@ -325,7 +325,7 @@ public class ImageZoomDialog extends Activity implements OnTouchListener, OnClic
 		imgView.setImageBitmap(zoomedBMP);
 	}
 
-	// é¸å¤æŒ³éç‘°åš®é€æƒ§ã‡é‘èŠ¥æšŸ
+	// °´Å¥µã»÷·Å´óº¯Êı
 	private void enlarge() {
 		try {
 			int bmpWidth = bitmap.getWidth();

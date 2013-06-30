@@ -2,7 +2,7 @@ package net.oschina.app.ui;
 
 import net.oschina.app.AppContext;
 import net.oschina.app.AppException;
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.bean.Result;
 import net.oschina.app.common.StringUtils;
 import net.oschina.app.common.UIHelper;
@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 /**
- * é‰çƒ†å‰™è¤°å‚æ‚¾å¨†æ†æ…
+ * ×ª·¢ÁôÑÔ
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -44,8 +44,8 @@ public class MessageForward extends Activity{
 		this.initView();
 	}
 	
-    //é–¸æ“ç¹‚é¡¬å©‡å´ éî„‰ç€°é–¸ãƒ§å“ç”¯èˆµç¦’é”Ÿï¿½    
-	private void initView()
+    //³õÊ¼»¯ÊÓÍ¼¿Ø¼ş
+    private void initView()
     {
     	imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
     	
@@ -66,17 +66,17 @@ public class MessageForward extends Activity{
 	
 	private View.OnClickListener publishClickListener = new View.OnClickListener() {
 		public void onClick(View v) {	
-			//é—‚å‘®åŠ˜å¦«å±¾æ½ªé¡–ç‚´æš›é–»â•‹æ‹·
+			//Òş²ØÈí¼üÅÌ
 			imm.hideSoftInputFromWindow(v.getWindowToken(), 0);  
 			
 			_content = mContent.getText().toString();
 			_receiver = mReceiver.getText().toString();
 			if(StringUtils.isEmpty(_content)){
-				UIHelper.ToastMessage(v.getContext(), "é å›©æŸ‰ç»¶î…¢å´—éŠ‰Ñ„æ®ŒéŸå‡¤æ‹·éå¯¸ï¿½é”Ÿï¿½");
+				UIHelper.ToastMessage(v.getContext(), "ÇëÊäÈëÁôÑÔÄÚÈİ");
 				return;
 			}
 			if(StringUtils.isEmpty(_receiver)){
-				UIHelper.ToastMessage(v.getContext(), "é å›©æŸ‰ç»¶î…¢å´—éŠ‰ãƒ®åš é–ºå‚šæ¹±å¨ˆæˆ¦å¼°é¢æ•Œï¿½");
+				UIHelper.ToastMessage(v.getContext(), "ÇëÊäÈë¶Ô·½µÄêÇ³Æ");
 				return;
 			}
 			
@@ -86,7 +86,7 @@ public class MessageForward extends Activity{
 				return;
 			}
 			
-			mProgress = ProgressDialog.show(v.getContext(), null, "é–¸æ¬å¿é”ŸèŠ¥ç¨‰é¡’è®³è±¢æµ åŒ¡æ‹·",true,true); 
+			mProgress = ProgressDialog.show(v.getContext(), null, "·¢ËÍÖĞ¡¤¡¤¡¤",true,true); 
 			
 			final Handler handler = new Handler(){
 				public void handleMessage(Message msg) {
@@ -97,7 +97,7 @@ public class MessageForward extends Activity{
 						Result res = (Result)msg.obj;
 						UIHelper.ToastMessage(MessageForward.this, res.getErrorMessage());
 						if(res.OK()){
-							//é–¸æ¬å¿é”Ÿä»‹æŸ…å§˜è¾©å€æ¥ ç‚´å¯§é¸ï¿½
+							//·¢ËÍÍ¨Öª¹ã²¥
 							if(res.getNotice() != null){
 								UIHelper.sendBroadCast(MessageForward.this, res.getNotice());
 							}

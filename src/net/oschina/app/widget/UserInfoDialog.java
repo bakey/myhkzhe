@@ -1,13 +1,13 @@
 package net.oschina.app.widget;
 
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.WindowManager.LayoutParams;
 
 /**
- * é¢ã„¦åŸ›æ·‡â„ƒä¼…ç€µç¡…ç˜½å¦—å—˜å¸¶æµ ï¿½
+ * ÓÃ»§ĞÅÏ¢¶Ô»°¿ò¿Ø¼ş
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-7-2
@@ -20,12 +20,12 @@ public class UserInfoDialog extends Dialog {
 		super(context, R.style.Dialog);		
 		setContentView(R.layout.user_center_content);
 		
-		// ç’å‰§ç–†éç‘°åš®ç€µç¡…ç˜½å¦—å—•ç®£æ¾¶æ ¬å…˜å¨‘å ã‘
+		// ÉèÖÃµã»÷¶Ô»°¿òÖ®ÍâÄÜÏûÊ§
 		setCanceledOnTouchOutside(true);
-		// ç’å‰§ç–†windowçç‚´ï¿½
+		// ÉèÖÃwindowÊôĞÔ
 		lp = getWindow().getAttributes();
 		lp.gravity = Gravity.TOP;
-		lp.dimAmount = 0; // é˜æ˜å„—é…îˆä¼„é©ï¿½
+		lp.dimAmount = 0; // È¥±³¾°ÕÚ¸Ç
 		lp.alpha = 1.0f;
 		lp.y = 55;
 		getWindow().setAttributes(lp);

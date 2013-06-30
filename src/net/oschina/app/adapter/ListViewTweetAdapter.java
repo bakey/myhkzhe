@@ -2,7 +2,7 @@ package net.oschina.app.adapter;
 
 import java.util.List;
 
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.bean.Tweet;
 import net.oschina.app.common.BitmapManager;
 import net.oschina.app.common.StringUtils;
@@ -17,18 +17,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * é–¸æ–»åŠŒé‘´å¤¾dapterç¼î‚¬æ‹·
+ * ¶¯µ¯AdapterÀà
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
  */
 public class ListViewTweetAdapter extends BaseAdapter {
-	private Context 					context;//é‰â•‚åŠ˜é¡¢æˆç¨‰æ¿ ä½ºç‘“é–ºå‚¦æ‹·
-	private List<Tweet> 				listItems;//é–ºä½ºå¢—å®“ä¾€æ¢¿é¡æ¥å€¤
-	private LayoutInflater 				listContainer;//éŸæ¬æ£—å¨´æ¨¼ï¿½éŸç‰ˆç¤
-	private int 						itemViewResource;//é–¼å¥‰äºœé£ç‚¬ç¨Šæ¾¶æ„©ï¿½éŸæ¬æ£—å¨´æ¨ºâ”ƒé”Ÿï¿½	
+	private Context 					context;//ÔËĞĞÉÏÏÂÎÄ
+	private List<Tweet> 				listItems;//Êı¾İ¼¯ºÏ
+	private LayoutInflater 				listContainer;//ÊÓÍ¼ÈİÆ÷
+	private int 						itemViewResource;//×Ô¶¨ÒåÏîÊÓÍ¼Ô´
 	private BitmapManager 				bmpManager;
-	static class ListItemView{				//é–¼å¥‰äºœé£ç‚¬ç¨Šæ¾¶å¬ªä»˜å¨´çŠ²çˆ¼å¨‰ï¹‚å´¥é”Ÿï¿½
+	static class ListItemView{				//×Ô¶¨Òå¿Ø¼ş¼¯ºÏ  
 			public ImageView userface;  
 	        public TextView username;  
 		    public TextView date;  
@@ -39,14 +39,14 @@ public class ListViewTweetAdapter extends BaseAdapter {
 	 }  
 
 	/**
-	 * éåœ­å˜ç»¶ãƒ©å´ éˆåapter
+	 * ÊµÀı»¯Adapter
 	 * @param context
 	 * @param data
 	 * @param resource
 	 */
 	public ListViewTweetAdapter(Context context, List<Tweet> data,int resource) {
 		this.context = context;			
-		this.listContainer = LayoutInflater.from(context);	//é–¸æ“ç¨‘ç¼‚æ’¶æ†´é¡æ¥ç¦ˆéåœ­æ‡“å¨…æ—ç®é¯é‚¦å•ç¼‚å†¾å–•ç»—å‚›ç¨‰ç€£î‚£ç€®
+		this.listContainer = LayoutInflater.from(context);	//´´½¨ÊÓÍ¼ÈİÆ÷²¢ÉèÖÃÉÏÏÂÎÄ
 		this.itemViewResource = resource;
 		this.listItems = data;
 		this.bmpManager = new BitmapManager(BitmapFactory.decodeResource(context.getResources(), R.drawable.widget_dface_loading));
@@ -65,20 +65,20 @@ public class ListViewTweetAdapter extends BaseAdapter {
 	}
 	   
 	/**
-	 * ListView Itemé ä½¸å¢½é¤ï¿½
+	 * ListView ItemÉèÖÃ
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		//Log.d("method", "getView");
 		
-		//é–¼å¥‰äºœé£ç‚¬ç¨Šæ¾¶åº®ç€°é–¸ãƒ¯æ‹·
+		//×Ô¶¨ÒåÊÓÍ¼
 		ListItemView  listItemView = null;
 		
 		if (convertView == null) {
-			//é–¼æƒ§å˜²è¤°å™‡ist_itemé¢îˆšå•«éªî„„å¼¬é¥ï¸½î‚½é–»ã„¥å«¯é¡¬å‘´å´¶é”Ÿï¿½		
+			//»ñÈ¡list_item²¼¾ÖÎÄ¼şµÄÊÓÍ¼
 			convertView = listContainer.inflate(this.itemViewResource, null);
 			
 			listItemView = new ListItemView();
-			//é–¼æƒ§å˜²è¤°å›¬å¹’è¤Œå¨†ãˆ¢ï¿½çº­å‘°æ½
+			//»ñÈ¡¿Ø¼ş¶ÔÏó
 			listItemView.userface = (ImageView)convertView.findViewById(R.id.tweet_listitem_userface);
 			listItemView.username = (TextView)convertView.findViewById(R.id.tweet_listitem_username);
 			listItemView.content = (TextView)convertView.findViewById(R.id.tweet_listitem_content);
@@ -87,16 +87,16 @@ public class ListViewTweetAdapter extends BaseAdapter {
 			listItemView.commentCount= (TextView)convertView.findViewById(R.id.tweet_listitem_commentCount);
 			listItemView.client= (TextView)convertView.findViewById(R.id.tweet_listitem_client);
 			
-			//é ä½¸å¢½é¤å—›å¹’è¤Œå¨†ãˆ¤æ¢¿é¡æ¥€ç…‚convertView
+			//ÉèÖÃ¿Ø¼ş¼¯µ½convertView
 			convertView.setTag(listItemView);
 		}else {
 			listItemView = (ListItemView)convertView.getTag();
 		}
 				
-		//é ä½¸å¢½é¤å—›å¼¬é¥Ñ…æ‘Ÿé–¸æ»ƒè‹¯å¨´æ©€æ‚§é”Ÿï¿½	
+		//ÉèÖÃÎÄ×ÖºÍÍ¼Æ¬
 		Tweet tweet = listItems.get(position);
 		listItemView.username.setText(tweet.getAuthor());
-		listItemView.username.setTag(tweet);//é ä½¸å¢½é¤å—›æ¢¾é°îˆ›î—é–¸æ¬å€¹é†ï¿½éåœ­å˜ç¼å¬¬çŒ¾é”Ÿï¿½
+		listItemView.username.setTag(tweet);//ÉèÖÃÒş²Ø²ÎÊı(ÊµÌåÀà)
 		listItemView.content.setText(tweet.getBody());
 		listItemView.date.setText(StringUtils.friendly_time(tweet.getPubDate()));
 		listItemView.commentCount.setText(tweet.getCommentCount()+"");
@@ -108,16 +108,16 @@ public class ListViewTweetAdapter extends BaseAdapter {
 				listItemView.client.setText("");
 				break;
 			case 2:
-				listItemView.client.setText("é–ºå¤ˆå„´é¤ï¿½é–¹é›îƒ†å©§ï¿½");
+				listItemView.client.setText("À´×Ô:ÊÖ»ú");
 				break;
 			case 3:
-				listItemView.client.setText("é–ºå¤ˆå„´é¤ï¿½Android");
+				listItemView.client.setText("À´×Ô:Android");
 				break;
 			case 4:
-				listItemView.client.setText("é–ºå¤ˆå„´é¤ï¿½iPhone");
+				listItemView.client.setText("À´×Ô:iPhone");
 				break;
 			case 5:
-				listItemView.client.setText("é–ºå¤ˆå„´é¤ï¿½Windows Phone");
+				listItemView.client.setText("À´×Ô:Windows Phone");
 				break;
 		}
 		if(StringUtils.isEmpty(listItemView.client.getText().toString()))

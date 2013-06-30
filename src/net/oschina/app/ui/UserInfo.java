@@ -2,7 +2,7 @@ package net.oschina.app.ui;
 
 import net.oschina.app.AppContext;
 import net.oschina.app.AppException;
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.bean.FriendList;
 import net.oschina.app.bean.MyInformation;
 import net.oschina.app.common.StringUtils;
@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * é¢ã„¦åŸ›ç’§å‹¬æ¡
+ * ÓÃ»§×ÊÁÏ
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -48,9 +48,9 @@ public class UserInfo extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_info);		
 		
-		//é’æ¿†îŠç’‡æ¿Šî…é¥ç‚¬å¸¶æµ ï¿½
+		//³õÊ¼»°ÊÓÍ¼¿Ø¼ş
 		this.initView();
-		//é’æ¿†îŠé–æ ¬î…é¥ç‚¬æšŸé¹ï¿½
+		//³õÊ¼»¯ÊÓÍ¼Êı¾İ
 		this.initData();
 	}
 	
@@ -82,16 +82,16 @@ public class UserInfo extends Activity{
 				if(msg.what == 1 && msg.obj != null){
 					user = (MyInformation)msg.obj;
 					
-					//é”çŠºæµ‡é¢ã„¦åŸ›æ¾¶æ‘å„š
+					//¼ÓÔØÓÃ»§Í·Ïñ
 					UIHelper.showUserFace(face, user.getFace());
 					
-					//é¢ã„¦åŸ›é¬ÑƒåŸ†
+					//ÓÃ»§ĞÔ±ğ
 					if(user.getGender() == 1)
 						gender.setImageResource(R.drawable.widget_gender_man);
 					else
 						gender.setImageResource(R.drawable.widget_gender_woman);
 					
-					//éæœµç²¬ç’§å‹¬æ¡
+					//ÆäËû×ÊÁÏ
 					name.setText(user.getName());
 					jointime.setText(StringUtils.friendly_time(user.getJointime()));
 					from.setText(user.getFrom());

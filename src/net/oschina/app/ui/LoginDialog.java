@@ -2,7 +2,7 @@ package net.oschina.app.ui;
 
 import net.oschina.app.AppContext;
 import net.oschina.app.AppException;
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.api.ApiClient;
 import net.oschina.app.bean.Result;
 import net.oschina.app.bean.User;
@@ -24,7 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ViewSwitcher;
 
 /**
- * é¢ã„¦åŸ›é§è¯²ç¶ç€µç¡…ç˜½å¦—ï¿½
+ * ÓÃ»§µÇÂ¼¶Ô»°¿ò
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -67,13 +67,13 @@ public class LoginDialog extends Activity{
         btn_login = (Button)findViewById(R.id.login_btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//é—…æ„¯æ£Œæîˆæ•­é©ï¿½
+				//Òş²ØÈí¼üÅÌ
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);  
 				
 				String account = mAccount.getText().toString();
 				String pwd = mPwd.getText().toString();
 				boolean isRememberMe = chb_rememberMe.isChecked();
-				//é’ã‚†æŸ‡æˆæ’³å†
+				//ÅĞ¶ÏÊäÈë
 				if(StringUtils.isEmpty(account)){
 					UIHelper.ToastMessage(v.getContext(), getString(R.string.msg_login_email_null));
 					return;
@@ -92,7 +92,7 @@ public class LoginDialog extends Activity{
 			}
 		});
 
-        //é„îˆšæƒé„å‰§ãšé§è¯²ç¶æ·‡â„ƒä¼…
+        //ÊÇ·ñÏÔÊ¾µÇÂ¼ĞÅÏ¢
         AppContext ac = (AppContext)getApplication();
         User user = ac.getLoginInfo();
         if(user==null || !user.isRememberMe()) return;
@@ -106,26 +106,26 @@ public class LoginDialog extends Activity{
         }
     }
     
-    //é§è¯²ç¶æ¥ å²ƒç˜‰
+    //µÇÂ¼ÑéÖ¤
     private void login(final String account, final String pwd, final boolean isRememberMe) {
 		final Handler handler = new Handler() {
 			public void handleMessage(Message msg) {
 				if(msg.what == 1){
 					User user = (User)msg.obj;
 					if(user != null){
-						//å¨“å‘¯â”–é˜ç†·å›cookie
+						//Çå¿ÕÔ­ÏÈcookie
 						ApiClient.cleanCookie();
-						//é™æˆ¦ï¿½é–«æ°±ç…¡éªæŒæŒ±
+						//·¢ËÍÍ¨Öª¹ã²¥
 						UIHelper.sendBroadCast(LoginDialog.this, user.getNotice());
-						//é»æ„®ãšé§å©šæª°é´æ„¬å§›
+						//ÌáÊ¾µÇÂ½³É¹¦
 						UIHelper.ToastMessage(LoginDialog.this, R.string.msg_login_success);
 						if(curLoginType == LOGIN_MAIN){
-							//ç’ºå® æµ†--é”çŠºæµ‡é¢ã„¦åŸ›é”ã„¦ï¿½
+							//Ìø×ª--¼ÓÔØÓÃ»§¶¯Ì¬
 							Intent intent = new Intent(LoginDialog.this, Main.class);
 							intent.putExtra("LOGIN", true);
 							startActivity(intent);
 						}else if(curLoginType == LOGIN_SETTING){
-							//ç’ºå® æµ†--é¢ã„¦åŸ›ç’å‰§ç–†æ¤¤ç”¸æ½°
+							//Ìø×ª--ÓÃ»§ÉèÖÃÒ³Ãæ
 							Intent intent = new Intent(LoginDialog.this, Setting.class);
 							intent.putExtra("LOGIN", true);
 							startActivity(intent);
@@ -152,12 +152,12 @@ public class LoginDialog extends Activity{
 	                user.setRememberMe(isRememberMe);
 	                Result res = user.getValidate();
 	                if(res.OK()){
-	                	ac.saveLoginInfo(user);//æ·‡æ¿†ç“¨é§è¯²ç¶æ·‡â„ƒä¼…
-	                	msg.what = 1;//é´æ„¬å§›
+	                	ac.saveLoginInfo(user);//±£´æµÇÂ¼ĞÅÏ¢
+	                	msg.what = 1;//³É¹¦
 	                	msg.obj = user;
 	                }else{
-	                	ac.cleanLoginInfo();//å¨“å‘´æ«é§è¯²ç¶æ·‡â„ƒä¼…
-	                	msg.what = 0;//æ¾¶è¾«è§¦
+	                	ac.cleanLoginInfo();//Çå³ıµÇÂ¼ĞÅÏ¢
+	                	msg.what = 0;//Ê§°Ü
 	                	msg.obj = res.getErrorMessage();
 	                }
 	            } catch (AppException e) {

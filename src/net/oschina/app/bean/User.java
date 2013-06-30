@@ -12,20 +12,20 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.util.Xml;
 
 /**
- * ç™»å½•ç”¨æˆ·å®ä½“ç±»
+ * µÇÂ¼ÓÃ»§ÊµÌåÀà
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
  */
 public class User extends Base {
 	
-	public final static int	RELATION_ACTION_DELETE = 0x00;//å–æ¶ˆå…³æ³¨
-	public final static int	RELATION_ACTION_ADD = 0x01;//åŠ å…³æ³¨
+	public final static int	RELATION_ACTION_DELETE = 0x00;//È¡Ïû¹Ø×¢
+	public final static int	RELATION_ACTION_ADD = 0x01;//¼Ó¹Ø×¢
 	
-	public final static int	RELATION_TYPE_BOTH = 0x01;//åŒæ–¹äº’ä¸ºç²‰ä¸
-	public final static int	RELATION_TYPE_FANS_HIM = 0x02;//ä½ å•æ–¹é¢å…³æ³¨ä»–
-	public final static int	RELATION_TYPE_NULL = 0x03;//äº’ä¸å…³æ³¨
-	public final static int	RELATION_TYPE_FANS_ME = 0x04;//åªæœ‰ä»–å…³æ³¨æˆ‘
+	public final static int	RELATION_TYPE_BOTH = 0x01;//Ë«·½»¥Îª·ÛË¿
+	public final static int	RELATION_TYPE_FANS_HIM = 0x02;//Äãµ¥·½Ãæ¹Ø×¢Ëû
+	public final static int	RELATION_TYPE_NULL = 0x03;//»¥²»¹Ø×¢
+	public final static int	RELATION_TYPE_FANS_ME = 0x04;//Ö»ÓĞËû¹Ø×¢ÎÒ
 	
 	private int uid;
 	private String location;
@@ -153,19 +153,19 @@ public class User extends Base {
 	public static User parse(InputStream stream) throws IOException, AppException {
 		User user = new User();
 		Result res = null;
-		// è·å¾—XmlPullParserè§£æå™¨
+		// »ñµÃXmlPullParser½âÎöÆ÷
 		XmlPullParser xmlParser = Xml.newPullParser();
 		try {
 			xmlParser.setInput(stream, Base.UTF8);
-			// è·å¾—è§£æåˆ°çš„äº‹ä»¶ç±»åˆ«ï¼Œè¿™é‡Œæœ‰å¼€å§‹æ–‡æ¡£ï¼Œç»“æŸæ–‡æ¡£ï¼Œå¼€å§‹æ ‡ç­¾ï¼Œç»“æŸæ ‡ç­¾ï¼Œæ–‡æœ¬ç­‰ç­‰äº‹ä»¶ã€‚
+			// »ñµÃ½âÎöµ½µÄÊÂ¼şÀà±ğ£¬ÕâÀïÓĞ¿ªÊ¼ÎÄµµ£¬½áÊøÎÄµµ£¬¿ªÊ¼±êÇ©£¬½áÊø±êÇ©£¬ÎÄ±¾µÈµÈÊÂ¼ş¡£
 			int evtType = xmlParser.getEventType();
-			// ä¸€ç›´å¾ªç¯ï¼Œç›´åˆ°æ–‡æ¡£ç»“æŸ
+			// Ò»Ö±Ñ­»·£¬Ö±µ½ÎÄµµ½áÊø
 			while (evtType != XmlPullParser.END_DOCUMENT) {
 				String tag = xmlParser.getName();
 				switch (evtType) {
 
 				case XmlPullParser.START_TAG:
-					// å¦‚æœæ˜¯æ ‡ç­¾å¼€å§‹ï¼Œåˆ™è¯´æ˜éœ€è¦å®ä¾‹åŒ–å¯¹è±¡äº†
+					// Èç¹ûÊÇ±êÇ©¿ªÊ¼£¬ÔòËµÃ÷ĞèÒªÊµÀı»¯¶ÔÏóÁË
 					if (tag.equalsIgnoreCase("result")) {
 						res = new Result();
 					} else if (tag.equalsIgnoreCase("errorCode")) {
@@ -188,7 +188,7 @@ public class User extends Base {
 						}else if(tag.equalsIgnoreCase("portrait")){
 							user.setFace(xmlParser.nextText());
 						}
-			            //é€šçŸ¥ä¿¡æ¯
+			            //Í¨ÖªĞÅÏ¢
 			            else if(tag.equalsIgnoreCase("notice"))
 			    		{
 			            	user.setNotice(new Notice());
@@ -215,13 +215,13 @@ public class User extends Base {
 					}
 					break;
 				case XmlPullParser.END_TAG:
-					//å¦‚æœé‡åˆ°æ ‡ç­¾ç»“æŸï¼Œåˆ™æŠŠå¯¹è±¡æ·»åŠ è¿›é›†åˆä¸­
+					//Èç¹ûÓöµ½±êÇ©½áÊø£¬Ôò°Ñ¶ÔÏóÌí¼Ó½ø¼¯ºÏÖĞ
 			       	if (tag.equalsIgnoreCase("result") && res != null) { 
 			       		user.setValidate(res);
 			       	}
 					break;
 				}
-				// å¦‚æœxmlæ²¡æœ‰ç»“æŸï¼Œåˆ™å¯¼èˆªåˆ°ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+				// Èç¹ûxmlÃ»ÓĞ½áÊø£¬Ôòµ¼º½µ½ÏÂÒ»¸ö½Úµã
 				evtType = xmlParser.next();
 			}
 

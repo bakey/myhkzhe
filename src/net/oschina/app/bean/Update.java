@@ -13,7 +13,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.util.Xml;
 
 /**
- * åº”ç”¨ç¨‹åºæ›´æ–°å®ä½“ç±»
+ * Ó¦ÓÃ³ÌĞò¸üĞÂÊµÌåÀà
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -55,18 +55,18 @@ public class Update implements Serializable{
 	
 	public static Update parse(InputStream inputStream) throws IOException, AppException {
 		Update update = null;
-        //è·å¾—XmlPullParserè§£æå™¨
+        //»ñµÃXmlPullParser½âÎöÆ÷
         XmlPullParser xmlParser = Xml.newPullParser();
         try {        	
             xmlParser.setInput(inputStream, UTF8);
-            //è·å¾—è§£æåˆ°çš„äº‹ä»¶ç±»åˆ«ï¼Œè¿™é‡Œæœ‰å¼€å§‹æ–‡æ¡£ï¼Œç»“æŸæ–‡æ¡£ï¼Œå¼€å§‹æ ‡ç­¾ï¼Œç»“æŸæ ‡ç­¾ï¼Œæ–‡æœ¬ç­‰ç­‰äº‹ä»¶ã€‚
+            //»ñµÃ½âÎöµ½µÄÊÂ¼şÀà±ğ£¬ÕâÀïÓĞ¿ªÊ¼ÎÄµµ£¬½áÊøÎÄµµ£¬¿ªÊ¼±êÇ©£¬½áÊø±êÇ©£¬ÎÄ±¾µÈµÈÊÂ¼ş¡£
             int evtType=xmlParser.getEventType();
-			//ä¸€ç›´å¾ªç¯ï¼Œç›´åˆ°æ–‡æ¡£ç»“æŸ    
+			//Ò»Ö±Ñ­»·£¬Ö±µ½ÎÄµµ½áÊø    
 			while(evtType!=XmlPullParser.END_DOCUMENT){ 
 	    		String tag = xmlParser.getName(); 
 			    switch(evtType){ 
 			    	case XmlPullParser.START_TAG:			    		
-			            //é€šçŸ¥ä¿¡æ¯
+			            //Í¨ÖªĞÅÏ¢
 			            if(tag.equalsIgnoreCase("android"))
 			    		{
 			            	update = new Update();
@@ -94,7 +94,7 @@ public class Update implements Serializable{
 			    	case XmlPullParser.END_TAG:		    		
 				       	break; 
 			    }
-			    //å¦‚æœxmlæ²¡æœ‰ç»“æŸï¼Œåˆ™å¯¼èˆªåˆ°ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+			    //Èç¹ûxmlÃ»ÓĞ½áÊø£¬Ôòµ¼º½µ½ÏÂÒ»¸ö½Úµã
 			    evtType=xmlParser.next();
 			}		
         } catch (XmlPullParserException e) {

@@ -17,7 +17,7 @@ package greendroid.widget;
 
 import java.util.List;
 
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 
 import android.content.Context;
 import android.graphics.Rect;

@@ -1,6 +1,6 @@
 package net.oschina.app;
 
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 
 import net.oschina.app.common.StringUtils;
 import net.oschina.app.ui.Main;

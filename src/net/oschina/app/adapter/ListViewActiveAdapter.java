@@ -2,7 +2,7 @@ package net.oschina.app.adapter;
 
 import java.util.List;
 
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.bean.Active;
 import net.oschina.app.bean.Active.ObjectReply;
 import net.oschina.app.common.BitmapManager;
@@ -19,18 +19,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * é–»î–ŒåŠé©æ¶¢å´éŠŠï¸¼æ‹·Adapterç¼î‚¬æ‹·
+ * ÓÃ»§¶¯Ì¬AdapterÀà
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
  */
 public class ListViewActiveAdapter extends BaseAdapter {
-	private Context 					context;//é‰â•‚åŠ˜é¡¢æˆç¨‰æ¿ ä½ºç‘“é–ºå‚¦æ‹·
-	private List<Active> 				listItems;//é–ºä½ºå¢—å®“ä¾€æ¢¿é¡æ¥å€¤
-	private LayoutInflater 				listContainer;//éŸæ¬æ£—å¨´æ¨¼ï¿½éŸç‰ˆç¤
-	private int 						itemViewResource;//é–¼å¥‰äºœé£ç‚¬ç¨Šæ¾¶æ„©ï¿½éŸæ¬æ£—å¨´æ¨ºâ”ƒé”Ÿï¿½
+	private Context 					context;//ÔËĞĞÉÏÏÂÎÄ
+	private List<Active> 				listItems;//Êı¾İ¼¯ºÏ
+	private LayoutInflater 				listContainer;//ÊÓÍ¼ÈİÆ÷
+	private int 						itemViewResource;//×Ô¶¨ÒåÏîÊÓÍ¼Ô´
 	private BitmapManager 				bmpManager;
-	static class ListItemView{				//é–¼å¥‰äºœé£ç‚¬ç¨Šæ¾¶å¬ªä»˜å¨´çŠ²çˆ¼å¨‰ï¹‚å´¥é”Ÿï¿½
+	static class ListItemView{				//×Ô¶¨Òå¿Ø¼ş¼¯ºÏ  
 			public ImageView userface;  
 	        public TextView username;  
 		    public TextView date;  
@@ -43,14 +43,14 @@ public class ListViewActiveAdapter extends BaseAdapter {
 	 }  
 
 	/**
-	 * éåœ­å˜ç»¶ãƒ©å´ éˆåapter
+	 * ÊµÀı»¯Adapter
 	 * @param context
 	 * @param data
 	 * @param resource
 	 */
 	public ListViewActiveAdapter(Context context, List<Active> data,int resource) {
 		this.context = context;			
-		this.listContainer = LayoutInflater.from(context);	//é–¸æ“ç¨‘ç¼‚æ’¶æ†´é¡æ¥ç¦ˆéåœ­æ‡“å¨…æ—ç®é¯é‚¦å•ç¼‚å†¾å–•ç»—å‚›ç¨‰ç€£î‚£ç€®
+		this.listContainer = LayoutInflater.from(context);	//´´½¨ÊÓÍ¼ÈİÆ÷²¢ÉèÖÃÉÏÏÂÎÄ
 		this.itemViewResource = resource;
 		this.listItems = data;
 		this.bmpManager = new BitmapManager(BitmapFactory.decodeResource(context.getResources(), R.drawable.widget_dface_loading));
@@ -69,20 +69,20 @@ public class ListViewActiveAdapter extends BaseAdapter {
 	}
 	   
 	/**
-	 * ListView Itemé ä½¸å¢½é¤ï¿½
+	 * ListView ItemÉèÖÃ
 	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		//Log.d("method", "getView");
 		
-		//é–¼å¥‰äºœé£ç‚¬ç¨Šæ¾¶åº®ç€°é–¸ãƒ¯æ‹·
+		//×Ô¶¨ÒåÊÓÍ¼
 		ListItemView  listItemView = null;
 		
 		if (convertView == null) {
-			//é–¼æƒ§å˜²è¤°å™‡ist_itemé¢îˆšå•«éªî„„å¼¬é¥ï¸½î‚½é–»ã„¥å«¯é¡¬å‘´å´¶é”Ÿï¿½			
+			//»ñÈ¡list_item²¼¾ÖÎÄ¼şµÄÊÓÍ¼
 			convertView = listContainer.inflate(this.itemViewResource, null);
 			
 			listItemView = new ListItemView();
-			//é–¼æƒ§å˜²è¤°å›¬å¹’è¤Œå¨†ãˆ¢ï¿½çº­å‘°æ½
+			//»ñÈ¡¿Ø¼ş¶ÔÏó
 			listItemView.userface = (ImageView)convertView.findViewById(R.id.active_listitem_userface);
 			listItemView.username = (TextView)convertView.findViewById(R.id.active_listitem_username);
 			listItemView.content = (TextView)convertView.findViewById(R.id.active_listitem_content);
@@ -93,16 +93,16 @@ public class ListViewActiveAdapter extends BaseAdapter {
 			listItemView.redirect = (ImageView)convertView.findViewById(R.id.active_listitem_redirect);
 			listItemView.image= (ImageView)convertView.findViewById(R.id.active_listitem_image);
 			
-			//é ä½¸å¢½é¤å—›å¹’è¤Œå¨†ãˆ¤æ¢¿é¡æ¥€ç…‚convertView
+			//ÉèÖÃ¿Ø¼ş¼¯µ½convertView
 			convertView.setTag(listItemView);
 		}else {
 			listItemView = (ListItemView)convertView.getTag();
 		}
 		
-		//é ä½¸å¢½é¤å—›å¼¬é¥Ñ…æ‘Ÿé–¸æ»ƒè‹¯å¨´æ©€æ‚§é”Ÿï¿½		
+		//ÉèÖÃÎÄ×ÖºÍÍ¼Æ¬
 		Active active = listItems.get(position);
 		listItemView.username.setText(UIHelper.parseActiveAction(active.getAuthor(),active.getObjectType(),active.getObjectCatalog(),active.getObjectTitle()));
-		listItemView.username.setTag(active);//é ä½¸å¢½é¤å—›æ¢¾é°îˆ›î—é–¸æ¬å€¹é†ï¿½éåœ­å˜ç¼å¬¬çŒ¾é”Ÿï¿½
+		listItemView.username.setTag(active);//ÉèÖÃÒş²Ø²ÎÊı(ÊµÌåÀà)
 		listItemView.content.setText(active.getMessage());
 		listItemView.date.setText(StringUtils.friendly_time(active.getPubDate()));
 		listItemView.commentCount.setText(active.getCommentCount()+"");
@@ -114,16 +114,16 @@ public class ListViewActiveAdapter extends BaseAdapter {
 				listItemView.client.setText("");
 				break;
 			case 2:
-				listItemView.client.setText("æ¥è‡ª:æ‰‹æœº");
+				listItemView.client.setText("À´×Ô:ÊÖ»ú");
 				break;
 			case 3:
-				listItemView.client.setText("æ¥è‡ª:Android");
+				listItemView.client.setText("À´×Ô:Android");
 				break;
 			case 4:
-				listItemView.client.setText("æ¥è‡ª:iPhone");
+				listItemView.client.setText("À´×Ô:iPhone");
 				break;
 			case 5:
-				listItemView.client.setText("æ¥è‡ª:Windows Phone");
+				listItemView.client.setText("À´×Ô:Windows Phone");
 				break;
 		}
 		if(StringUtils.isEmpty(listItemView.client.getText().toString()))

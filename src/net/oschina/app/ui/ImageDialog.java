@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import net.oschina.app.AppException;
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.api.ApiClient;
 import net.oschina.app.common.FileUtils;
 import net.oschina.app.common.ImageUtils;
@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 /**
- * 鍥剧墖瀵硅瘽妗�
+ * ͼƬ�Ի���
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -73,19 +73,19 @@ public class ImageDialog extends Activity{
 				Bitmap bmp = null;
 		    	String filename = FileUtils.getFileName(imgURL);
 				try {
-					//璇诲彇鏈湴鍥剧墖
+					//��ȡ����ͼƬ
 					if(imgURL.endsWith("portrait.gif") || StringUtils.isEmpty(imgURL)){
 						bmp = BitmapFactory.decodeResource(mImage.getResources(), R.drawable.widget_dface);
 					}
 					if(bmp == null){
-						//鏄惁鏈夌紦瀛樺浘鐗�
-				    	//Environment.getExternalStorageDirectory();杩斿洖/sdcard
+						//�Ƿ��л���ͼƬ
+				    	//Environment.getExternalStorageDirectory();����/sdcard
 				    	String filepath = getFilesDir() + File.separator + filename;
 						File file = new File(filepath);
 						if(file.exists()){
 							bmp = ImageUtils.getBitmap(mImage.getContext(), filename);
 							if(bmp != null){
-								//缂╂斁鍥剧墖
+								//����ͼƬ
 								bmp = ImageUtils.reDrawBitMap(ImageDialog.this, bmp);
 							}
 				    	}
@@ -94,12 +94,12 @@ public class ImageDialog extends Activity{
 						bmp = ApiClient.getNetBitmap(imgURL);
 						if(bmp != null){
 							try {
-		                    	//鍐欏浘鐗囩紦瀛�
+		                    	//дͼƬ����
 								ImageUtils.saveImage(mImage.getContext(), filename, bmp);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
-							//缂╂斁鍥剧墖
+							//����ͼƬ
 							bmp = ImageUtils.reDrawBitMap(ImageDialog.this, bmp);
 						}
 					}

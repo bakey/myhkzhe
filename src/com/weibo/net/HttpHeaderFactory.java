@@ -42,13 +42,13 @@ public abstract class HttpHeaderFactory {
         // step 1: generate timestamp and nonce
         final long timestamp = System.currentTimeMillis() / 1000;
         final long nonce = timestamp + (new Random()).nextInt();
-        // step 2: authParamsæœ‰ä¸¤ä¸ªç”¨å¤„ï¼š1.åŠ å¯†ä¸²ä¸€éƒ¨åˆ† 2.ç”Ÿæˆæœ€åAuthorizationå¤´åŸŸ
+        // step 2: authParamsÓĞÁ½¸öÓÃ´¦£º1.¼ÓÃÜ´®Ò»²¿·Ö 2.Éú³É×îºóAuthorizationÍ·Óò
         WeiboParameters authParams = this.generateAuthParameters(nonce, timestamp, token);
-        // ç”Ÿæˆç”¨äºè®¡ç®—signatureçš„ï¼Œå‚æ•°ä¸²
+        // Éú³ÉÓÃÓÚ¼ÆËãsignatureµÄ£¬²ÎÊı´®
         WeiboParameters signatureParams = this.generateSignatureParameters(authParams, params, url);
-        // step 3: ç”Ÿæˆç”¨äºç­¾åçš„base String
+        // step 3: Éú³ÉÓÃÓÚÇ©ÃûµÄbase String
         String oauthBaseString = this.generateAuthSignature(method, signatureParams, url, token);
-        // step 4: ç”Ÿæˆoauth_signature
+        // step 4: Éú³Éoauth_signature
         String signature = generateSignature(oauthBaseString, token);
         authParams.add("oauth_signature", signature);
         // step 5: for additional parameters
@@ -91,14 +91,14 @@ public abstract class HttpHeaderFactory {
         return authParams;
     }
 
-    // ç”Ÿæˆç”¨äºå“ˆå¸Œçš„base stringä¸²ï¼Œæ³¨æ„è¦æŒ‰é¡ºåºï¼ŒæŒ‰éœ€æ–‡æ¡£éœ€æ±‚å‚æ•°ç”Ÿæˆï¼Œå¦åˆ™40107é”™è¯¯
+    // Éú³ÉÓÃÓÚ¹şÏ£µÄbase string´®£¬×¢ÒâÒª°´Ë³Ğò£¬°´ĞèÎÄµµĞèÇó²ÎÊıÉú³É£¬·ñÔò40107´íÎó
     public abstract WeiboParameters generateSignatureList(WeiboParameters bundle);
 
     // add additional parameters to des key-value pairs,support to expanding
     // params
     public abstract void addAdditionalParams(WeiboParameters des, WeiboParameters src);
 
-    // è§£æurlä¸­å‚æ•°å¯¹,å­˜å‚¨åˆ°signatureBaseParams
+    // ½âÎöurlÖĞ²ÎÊı¶Ô,´æ´¢µ½signatureBaseParams
     public void parseUrlParameters(String url, WeiboParameters signatureBaseParams)
             throws WeiboException {
         int queryStart = url.indexOf("?");

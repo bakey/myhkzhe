@@ -7,7 +7,7 @@ import com.weibo.net.WeiboDialogListener;
 import com.weibo.net.WeiboException;
 
 import net.oschina.app.AppConfig;
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,7 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 /**
- * é‚ç‰ˆæ°®å¯°î†¼å´¥ç”¯î†¼å§ªç»«ï¿½
+ * ĞÂÀËÎ¢²©°ïÖúÀà
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-22
@@ -73,11 +73,11 @@ public class SinaWeiboHelper {
 		    		break;
 		    	case OAUTH_AccessToken_ERROR: 
 		    		Toast.makeText(context, context.getString(R.string.OAUTH_AccessToken_ERROR), Toast.LENGTH_SHORT).show();
-		    		authorize(context, shareMessage, shareImage);//ç’ºå® æµ†é’ç‰ˆå·¿é‰å†®ã€‰é—ˆï¿½
+		    		authorize(context, shareMessage, shareImage);//Ìø×ªµ½ÊÚÈ¨Ò³Ãæ
 		    		break;
 		    	case OAUTH_AccessToken_SXPIRED: 
 		    		Toast.makeText(context, context.getString(R.string.OAUTH_AccessToken_SXPIRED), Toast.LENGTH_SHORT).show();
-		    		authorize(context, shareMessage, shareImage);//ç’ºå® æµ†é’ç‰ˆå·¿é‰å†®ã€‰é—ˆï¿½
+		    		authorize(context, shareMessage, shareImage);//Ìø×ªµ½ÊÚÈ¨Ò³Ãæ
 		    		break;
 		    	case Weibo_Message_NULL:
 		    		Toast.makeText(context, context.getString(R.string.Weibo_Message_NULL), Toast.LENGTH_SHORT).show();
@@ -98,7 +98,7 @@ public class SinaWeiboHelper {
 		};
 	};
 	/**
-	 * é’ã‚†æŸ‡weiboé„îˆšæƒæ¶“ç°„ull
+	 * ÅĞ¶ÏweiboÊÇ·ñÎªnull
 	 * @return
 	 */
 	public static boolean isWeiboNull()
@@ -109,7 +109,7 @@ public class SinaWeiboHelper {
 			return false;
 	}
 	/**
-	 * é’æ¿†îŠé–æ¦eibo
+	 * ³õÊ¼»¯weibo
 	 */
 	public static void initWeibo()
 	{
@@ -118,14 +118,14 @@ public class SinaWeiboHelper {
 		weibo.setRedirectUrl(REDIRECT_URL);
 	}
 	/**
-	 * å¯°î†¼å´¥éºå Ÿæ½ˆ éªï¿½é’å—•éŸ©(é‚å›¨æ¹°)
+	 * Î¢²©ÊÚÈ¨ ²¢ ·ÖÏí(ÎÄ±¾)
 	 */
 	public static void authorize(Activity cont, String shareMsg)
 	{
 		authorize(cont, shareMsg, null);
 	}
 	/**
-	 * å¯°î†¼å´¥éºå Ÿæ½ˆ éªï¿½é’å—•éŸ©(é‚å›¨æ¹°éŠ†ä½¸æµ˜é—ï¿½
+	 * Î¢²©ÊÚÈ¨ ²¢ ·ÖÏí(ÎÄ±¾¡¢Í¼Æ¬)
 	 */
 	public static void authorize(final Activity cont,final String shareMsg,final String shareImg)
 	{		
@@ -144,9 +144,9 @@ public class SinaWeiboHelper {
 					String expires_in = values.getString(Weibo.EXPIRES);
 					accessToken = new AccessToken(token, CONSUMER_SECRET);
 					accessToken.setExpiresIn(expires_in);	
-					//æ·‡æ¿†ç“¨AccessToken
+					//±£´æAccessToken
 					AppConfig.getAppConfig(cont).setAccessInfo(accessToken.getToken(), accessToken.getSecret(), accessToken.getExpiresIn());
-					//å¯°î†¼å´¥é’å—•éŸ©
+					//Î¢²©·ÖÏí
 					shareMessage(cont, shareMsg, null);
 	    		} 
 	    		catch (Exception e) 
@@ -156,20 +156,20 @@ public class SinaWeiboHelper {
 			}
 			@Override
 			public void onError(DialogError e) {
-				Toast.makeText(context,"éºå Ÿæ½ˆæ¾¶è¾«è§¦ : " + e.getMessage(), Toast.LENGTH_LONG).show();
+				Toast.makeText(context,"ÊÚÈ¨Ê§°Ü : " + e.getMessage(), Toast.LENGTH_LONG).show();
 			}
 			@Override
 			public void onCancel() {
-				//Toast.makeText(context, "é™æ ¨ç§·éºå Ÿæ½ˆ", Toast.LENGTH_LONG).show();
+				//Toast.makeText(context, "È¡ÏûÊÚÈ¨", Toast.LENGTH_LONG).show();
 			}
 			@Override
 			public void onWeiboException(WeiboException e) {
-				Toast.makeText(context,"éºå Ÿæ½ˆå¯®å‚šçˆ¶ : " + e.getMessage(), Toast.LENGTH_LONG).show();
+				Toast.makeText(context,"ÊÚÈ¨Òì³£ : " + e.getMessage(), Toast.LENGTH_LONG).show();
 			}
 		});		
 	}
 	/**
-	 * éç‰ˆåµéšå Ÿç¡¶é¬Ñƒå½é‚ï¿½
+	 * Êı¾İºÏ·¨ĞÔÅĞ¶Ï
 	 * @return
 	 */
 	public static int messageChecked(String shareMsg)
@@ -186,9 +186,9 @@ public class SinaWeiboHelper {
 		return ret;
 	}
 	/**
-	 * å¯°î†¼å´¥é’å—•éŸ©
-	 * é’å—•éŸ©éå‘­î†shareMessage & é’å—•éŸ©é¥å‰§å¢–shareImage & è¤°æ’³å¢ Activity
-     * Toastæµ¼æ°­å½ç»€å“„åæµœî‚£åšé”ç†¸å¨æ¾¶è¾«è§¦
+	 * Î¢²©·ÖÏí
+	 * ·ÖÏíÄÚÈİshareMessage & ·ÖÏíÍ¼Æ¬shareImage & µ±Ç°Activity
+     * Toast»áÌáÊ¾·ÖÏí³É¹¦»òÊ§°Ü
 	 */
     public static void shareMessage(Activity cont, String shareMsg, String shareImg)
     {	
@@ -204,7 +204,7 @@ public class SinaWeiboHelper {
     	Message msg = new Message();
     	msg.what = Weibo_Share_Error;	
     	
-    	//é’ã‚†æŸ‡é„îˆšæƒéºå Ÿæ½ˆ
+    	//ÅĞ¶ÏÊÇ·ñÊÚÈ¨
     	if(accessToken == null)
     	{
     		msg.what = OAUTH_AccessToken_ERROR;
@@ -212,7 +212,7 @@ public class SinaWeiboHelper {
     		return;
     	}
     	
-    	//é’ã‚†æŸ‡tokené„îˆšæƒæ©å›¨æ¹¡
+    	//ÅĞ¶ÏtokenÊÇ·ñ¹ıÆÚ
     	if(accessToken.getExpiresIn() < System.currentTimeMillis())
     	{
     		msg.what = OAUTH_AccessToken_SXPIRED;
@@ -220,7 +220,7 @@ public class SinaWeiboHelper {
     		return;
     	}
     	
-    	//å¦«ï¿½ç…¡é‚å›¨æ¹°é„îˆšæƒç“’å‘­åš­é—„æ„¬åŸ—
+    	//¼ì²éÎÄ±¾ÊÇ·ñ³¬³öÏŞÖÆ
     	int checkCode = messageChecked(shareMsg);
     	if(checkCode != Weibo_Message_CHECKED)
     	{
@@ -237,7 +237,7 @@ public class SinaWeiboHelper {
         	}
         	else
         	{
-        		//é’å—•éŸ©ç”¯ï¹€æµ˜é—å›©æ®‘å¯°î†¼å´¥
+        		//·ÖÏí´øÍ¼Æ¬µÄÎ¢²©
         	}
 			
         	msg.what = Weibo_Share_Success;
@@ -258,9 +258,9 @@ public class SinaWeiboHelper {
         handler.sendMessage(msg);
 	}
     /**
-     * å¯°î†¼å´¥é’å—•éŸ©   
-     * é’å—•éŸ©éå‘­î†shareMessage & è¤°æ’³å¢ Activity
-     * Toastæµ¼æ°­å½ç»€å“„åæµœî‚£åšé”ç†¸å¨æ¾¶è¾«è§¦
+     * Î¢²©·ÖÏí   
+     * ·ÖÏíÄÚÈİshareMessage & µ±Ç°Activity
+     * Toast»áÌáÊ¾·ÖÏí³É¹¦»òÊ§°Ü
      */
     public static void shareMessage(Activity cont, String shareMsg)
     {

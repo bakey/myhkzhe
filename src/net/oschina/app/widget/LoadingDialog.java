@@ -1,6 +1,6 @@
 package net.oschina.app.widget;
 
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 
 /**
- * é”çŠºæµ‡ç€µç¡…ç˜½å¦—å—˜å¸¶æµ ï¿½
+ * ¼ÓÔØ¶Ô»°¿ò¿Ø¼ş
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -29,10 +29,10 @@ public class LoadingDialog extends Dialog {
 		View layout = inflater.inflate(R.layout.loadingdialog, null);
 		setContentView(layout);
 		
-		// ç’å‰§ç–†windowçç‚´ï¿½
+		// ÉèÖÃwindowÊôĞÔ
 		lp = getWindow().getAttributes();
 		lp.gravity = Gravity.CENTER;
-		lp.dimAmount = 0; // é˜æ˜å„—é…îˆä¼„é©ï¿½
+		lp.dimAmount = 0; // È¥±³¾°ÕÚ¸Ç
 		lp.alpha = 1.0f;
 		getWindow().setAttributes(lp);
 

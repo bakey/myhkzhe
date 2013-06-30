@@ -30,8 +30,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.hkzhe.wwtt.R;
-
+import com.hkzhe.app.R;
 public class WeiboDialog extends Dialog {
 
     static final FrameLayout.LayoutParams FILL = new FrameLayout.LayoutParams(
@@ -109,7 +108,7 @@ public class WeiboDialog extends Dialog {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Log.d(TAG, "Redirect URL: " + url);
-            // 寰呭悗鍙板鍔犲榛樿閲嶅畾鍚戝湴鍧�殑鏀寔鍚庝慨鏀逛笅闈㈢殑閫昏緫
+            // 瀵板懎鎮楅崣鏉款杻閸旂姴顕妯款吇闁插秴鐣鹃崥鎴濇勾閸э拷娈戦弨顖涘瘮閸氬簼鎱ㄩ弨閫涚瑓闂堛垻娈戦柅鏄忕帆
             if (url.startsWith(mWeibo.getRedirectUrl())) {
                 handleRedirectUrl(view, url);
                 WeiboDialog.this.dismiss();
@@ -169,8 +168,7 @@ public class WeiboDialog extends Dialog {
         if (error == null && error_code == null) {
             mListener.onComplete(values);
         } else if (error.equals("access_denied")) {
-            // 鐢ㄦ埛鎴栨巿鏉冩湇鍔″櫒鎷掔粷鎺堜簣鏁版嵁璁块棶鏉冮檺
-            mListener.onCancel();
+            // 閻劍鍩涢幋鏍ㄥ房閺夊啯婀囬崝鈥虫珤閹锋帞绮烽幒鍫滅埃閺佺増宓佺拋鍧楁６閺夊啴妾�            mListener.onCancel();
         } else {
             mListener.onWeiboException(new WeiboException(error, Integer.parseInt(error_code)));
         }

@@ -36,7 +36,7 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 
 /** 
- * å›¾ç‰‡æ“ä½œå·¥å…·åŒ…
+ * Í¼Æ¬²Ù×÷¹¤¾ß°ü
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -46,14 +46,14 @@ public class ImageUtils{
     public final static String SDCARD_MNT = "/mnt/sdcard";
     public final static String SDCARD = "/sdcard";
     
-    /** è¯·æ±‚ç›¸å†Œ */
+    /** ÇëÇóÏà²á */
     public static final int REQUEST_CODE_GETIMAGE_BYSDCARD = 0;
-    /** è¯·æ±‚ç›¸æœº */
+    /** ÇëÇóÏà»ú */
     public static final int REQUEST_CODE_GETIMAGE_BYCAMERA = 1;
     
 	/**
-	 * å†™å›¾ç‰‡æ–‡ä»¶
-	 * åœ¨Androidç³»ç»Ÿä¸­ï¼Œæ–‡ä»¶ä¿å­˜åœ¨ /data/data/PACKAGE_NAME/files ç›®å½•ä¸‹
+	 * Ğ´Í¼Æ¬ÎÄ¼ş
+	 * ÔÚAndroidÏµÍ³ÖĞ£¬ÎÄ¼ş±£´æÔÚ /data/data/PACKAGE_NAME/files Ä¿Â¼ÏÂ
 	 * @throws IOException 
 	 */
 	public static void saveImage(Context context, String fileName, Bitmap bitmap) throws IOException 
@@ -73,7 +73,7 @@ public class ImageUtils{
 	}
 	
 	/**
-	 * å†™å›¾ç‰‡æ–‡ä»¶åˆ°SDå¡
+	 * Ğ´Í¼Æ¬ÎÄ¼şµ½SD¿¨
 	 * @throws IOException 
 	 */
 	public static void saveImageToSD(String filePath, Bitmap bitmap, int quality) throws IOException
@@ -89,7 +89,7 @@ public class ImageUtils{
 	}
     
 	/**
-	 * è·å–bitmap
+	 * »ñÈ¡bitmap
 	 * @param context
 	 * @param fileName
 	 * @return
@@ -112,7 +112,7 @@ public class ImageUtils{
 		return bitmap;
 	}
 	/**
-	 * è·å–bitmap
+	 * »ñÈ¡bitmap
 	 * @param filePath
 	 * @return
 	 */
@@ -138,7 +138,7 @@ public class ImageUtils{
 		return bitmap;
 	}
 	/**
-	 * è·å–bitmap
+	 * »ñÈ¡bitmap
 	 * @param file
 	 * @return
 	 */
@@ -161,7 +161,7 @@ public class ImageUtils{
 	}
 	
 	/**
-	 * ä½¿ç”¨å½“å‰æ—¶é—´æˆ³æ‹¼æ¥ä¸€ä¸ªå”¯ä¸€çš„æ–‡ä»¶å
+	 * Ê¹ÓÃµ±Ç°Ê±¼ä´ÁÆ´½ÓÒ»¸öÎ¨Ò»µÄÎÄ¼şÃû
 	 * @param format
 	 * @return
 	 */
@@ -173,7 +173,7 @@ public class ImageUtils{
     }
     
     /**
-     * è·å–ç…§ç›¸æœºä½¿ç”¨çš„ç›®å½•
+     * »ñÈ¡ÕÕÏà»úÊ¹ÓÃµÄÄ¿Â¼
      * @return
      */
     public static String getCamerPath()
@@ -182,7 +182,7 @@ public class ImageUtils{
     }
     
 	/**
-	 * åˆ¤æ–­å½“å‰Urlæ˜¯å¦æ ‡å‡†çš„content://æ ·å¼ï¼Œå¦‚æœä¸æ˜¯ï¼Œåˆ™è¿”å›ç»å¯¹è·¯å¾„
+	 * ÅĞ¶Ïµ±Ç°UrlÊÇ·ñ±ê×¼µÄcontent://ÑùÊ½£¬Èç¹û²»ÊÇ£¬Ôò·µ»Ø¾ø¶ÔÂ·¾¶
 	 * @param uri
 	 * @return
 	 */
@@ -208,7 +208,7 @@ public class ImageUtils{
 	}
 	
 	 /**
-     * é€šè¿‡uriè·å–æ–‡ä»¶çš„ç»å¯¹è·¯å¾„
+     * Í¨¹ıuri»ñÈ¡ÎÄ¼şµÄ¾ø¶ÔÂ·¾¶
      * @param uri
      * @return
      */
@@ -235,8 +235,8 @@ public class ImageUtils{
     }
 	
 	/**
-	 * è·å–å›¾ç‰‡ç¼©ç•¥å›¾
-	 * åªæœ‰Android2.1ä»¥ä¸Šç‰ˆæœ¬æ”¯æŒ
+	 * »ñÈ¡Í¼Æ¬ËõÂÔÍ¼
+	 * Ö»ÓĞAndroid2.1ÒÔÉÏ°æ±¾Ö§³Ö
 	 * @param imgName
 	 * @param kind   MediaStore.Images.Thumbnails.MICRO_KIND
 	 * @return
@@ -268,7 +268,7 @@ public class ImageUtils{
     }
 	
 	/**
-	 * è·å–SDå¡ä¸­æœ€æ–°å›¾ç‰‡è·¯å¾„
+	 * »ñÈ¡SD¿¨ÖĞ×îĞÂÍ¼Æ¬Â·¾¶
 	 * @return
 	 */
 	public static String getLatestImage(Activity context)
@@ -296,7 +296,7 @@ public class ImageUtils{
 	}
 	
 	/**
-	 * è®¡ç®—ç¼©æ”¾å›¾ç‰‡çš„å®½é«˜
+	 * ¼ÆËãËõ·ÅÍ¼Æ¬µÄ¿í¸ß
 	 * @param img_size
 	 * @param square_size
 	 * @return
@@ -309,35 +309,35 @@ public class ImageUtils{
 	}
 	
 	/**
-	 * åˆ›å»ºç¼©ç•¥å›¾
+	 * ´´½¨ËõÂÔÍ¼
 	 * @param context
-	 * @param largeImagePath åŸå§‹å¤§å›¾è·¯å¾„
-	 * @param thumbfilePath è¾“å‡ºç¼©ç•¥å›¾è·¯å¾„
-	 * @param square_size è¾“å‡ºå›¾ç‰‡å®½åº¦
-	 * @param quality è¾“å‡ºå›¾ç‰‡è´¨é‡
+	 * @param largeImagePath Ô­Ê¼´óÍ¼Â·¾¶
+	 * @param thumbfilePath Êä³öËõÂÔÍ¼Â·¾¶
+	 * @param square_size Êä³öÍ¼Æ¬¿í¶È
+	 * @param quality Êä³öÍ¼Æ¬ÖÊÁ¿
 	 * @throws IOException
 	 */
 	public static void createImageThumbnail(Context context, String largeImagePath, String thumbfilePath, int square_size, int quality) throws IOException
 	{
 		BitmapFactory.Options opts = new BitmapFactory.Options();
 		opts.inSampleSize = 4;
-		//åŸå§‹å›¾ç‰‡bitmap
+		//Ô­Ê¼Í¼Æ¬bitmap
 		Bitmap cur_bitmap = getBitmapByPath(largeImagePath, opts);
 		
 		if(cur_bitmap == null) return;
 		
-		//åŸå§‹å›¾ç‰‡çš„é«˜å®½
+		//Ô­Ê¼Í¼Æ¬µÄ¸ß¿í
 		int[] cur_img_size = new int[]{cur_bitmap.getWidth(),cur_bitmap.getHeight()};
-		//è®¡ç®—åŸå§‹å›¾ç‰‡ç¼©æ”¾åçš„å®½é«˜
+		//¼ÆËãÔ­Ê¼Í¼Æ¬Ëõ·ÅºóµÄ¿í¸ß
 		int[] new_img_size = scaleImageSize(cur_img_size, square_size);
-		//ç”Ÿæˆç¼©æ”¾åçš„bitmap
+		//Éú³ÉËõ·ÅºóµÄbitmap
 		Bitmap thb_bitmap = zoomBitmap(cur_bitmap, new_img_size[0], new_img_size[1]);
-		//ç”Ÿæˆç¼©æ”¾åçš„å›¾ç‰‡æ–‡ä»¶
+		//Éú³ÉËõ·ÅºóµÄÍ¼Æ¬ÎÄ¼ş
 		saveImageToSD(thumbfilePath, thb_bitmap, quality);
 	}
 	
     /**
-     * æ”¾å¤§ç¼©å°å›¾ç‰‡
+     * ·Å´óËõĞ¡Í¼Æ¬
      * @param bitmap
      * @param w
      * @param h
@@ -358,28 +358,28 @@ public class ImageUtils{
     }
 
     public static Bitmap scaleBitmap(Bitmap bitmap) {
-        //è·å–è¿™ä¸ªå›¾ç‰‡çš„å®½å’Œé«˜   
+        //»ñÈ¡Õâ¸öÍ¼Æ¬µÄ¿íºÍ¸ß   
         int width = bitmap.getWidth();   
         int height = bitmap.getHeight();    
-        //å®šä¹‰é¢„è½¬æ¢æˆçš„å›¾ç‰‡çš„å®½åº¦å’Œé«˜åº¦   
+        //¶¨ÒåÔ¤×ª»»³ÉµÄÍ¼Æ¬µÄ¿í¶ÈºÍ¸ß¶È   
         int newWidth = 200;   
         int newHeight = 200;     
-        //è®¡ç®—ç¼©æ”¾ç‡ï¼Œæ–°å°ºå¯¸é™¤åŸå§‹å°ºå¯¸   
+        //¼ÆËãËõ·ÅÂÊ£¬ĞÂ³ß´ç³ıÔ­Ê¼³ß´ç   
         float scaleWidth = ((float) newWidth) / width;   
         float scaleHeight = ((float) newHeight) / height;    
-        //åˆ›å»ºæ“ä½œå›¾ç‰‡ç”¨çš„matrixå¯¹è±¡   
+        //´´½¨²Ù×÷Í¼Æ¬ÓÃµÄmatrix¶ÔÏó   
         Matrix matrix = new Matrix();    
-        //ç¼©æ”¾å›¾ç‰‡åŠ¨ä½œ   
+        //Ëõ·ÅÍ¼Æ¬¶¯×÷   
         matrix.postScale(scaleWidth, scaleHeight);  
-        //æ—‹è½¬å›¾ç‰‡ åŠ¨ä½œ   
+        //Ğı×ªÍ¼Æ¬ ¶¯×÷   
         //matrix.postRotate(45);   
-        //åˆ›å»ºæ–°çš„å›¾ç‰‡   
+        //´´½¨ĞÂµÄÍ¼Æ¬   
         Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
         return resizedBitmap;
     }
     
     /**
-     * (ç¼©æ”¾)é‡ç»˜å›¾ç‰‡ 
+     * (Ëõ·Å)ÖØ»æÍ¼Æ¬ 
      * @param context Activity
      * @param bitmap
      * @return
@@ -396,40 +396,40 @@ public class ImageUtils{
 	    int height=bitmap.getHeight(); 
 	    int width = bitmap.getWidth(); 
 	    float zoomScale; 
-	    /**æ–¹å¼1**/
-//	    if(rWidth/rHeight>width/height){//ä»¥é«˜ä¸ºå‡† 
+	    /**·½Ê½1**/
+//	    if(rWidth/rHeight>width/height){//ÒÔ¸ßÎª×¼ 
 //	    	zoomScale=((float) rHeight) / height; 
 //	    }else{ 
-//	    	//if(rWidth/rHeight<width/height)//ä»¥å®½ä¸ºå‡† 
+//	    	//if(rWidth/rHeight<width/height)//ÒÔ¿íÎª×¼ 
 //	    	zoomScale=((float) rWidth) / width; 
 //	    } 
-	    /**æ–¹å¼2**/
-//	    if(width*1.5 >= height) {//ä»¥å®½ä¸ºå‡†
+	    /**·½Ê½2**/
+//	    if(width*1.5 >= height) {//ÒÔ¿íÎª×¼
 //	    	if(width >= rWidth)
 //	    		zoomScale = ((float) rWidth) / width;
 //	    	else
 //	    		zoomScale = 1.0f;
-//	    }else {//ä»¥é«˜ä¸ºå‡†
+//	    }else {//ÒÔ¸ßÎª×¼
 //	    	if(height >= rHeight)
 //	    		zoomScale = ((float) rHeight) / height;
 //	    	else
 //	    		zoomScale = 1.0f;
 //	    }
-	    /**æ–¹å¼3**/
+	    /**·½Ê½3**/
 	    if(width >= rWidth)
     		zoomScale = ((float) rWidth) / width;
     	else
     		zoomScale = 1.0f;
-	    //åˆ›å»ºæ“ä½œå›¾ç‰‡ç”¨çš„matrixå¯¹è±¡  
+	    //´´½¨²Ù×÷Í¼Æ¬ÓÃµÄmatrix¶ÔÏó  
 	    Matrix matrix = new Matrix();  
-	    //ç¼©æ”¾å›¾ç‰‡åŠ¨ä½œ  
+	    //Ëõ·ÅÍ¼Æ¬¶¯×÷  
 	    matrix.postScale(zoomScale, zoomScale);  
 	    Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);  
 	    return resizedBitmap; 
     }  
     
     /**
-     * å°†Drawableè½¬åŒ–ä¸ºBitmap
+     * ½«Drawable×ª»¯ÎªBitmap
      * @param drawable
      * @return
      */
@@ -447,9 +447,9 @@ public class ImageUtils{
     }
 
     /**
-     * è·å¾—åœ†è§’å›¾ç‰‡çš„æ–¹æ³•
+     * »ñµÃÔ²½ÇÍ¼Æ¬µÄ·½·¨
      * @param bitmap
-     * @param roundPx ä¸€èˆ¬è®¾æˆ14
+     * @param roundPx Ò»°ãÉè³É14
      * @return
      */
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx) {
@@ -475,7 +475,7 @@ public class ImageUtils{
     }
 
     /**
-     * è·å¾—å¸¦å€’å½±çš„å›¾ç‰‡æ–¹æ³•
+     * »ñµÃ´øµ¹Ó°µÄÍ¼Æ¬·½·¨
      * @param bitmap
      * @return
      */
@@ -515,7 +515,7 @@ public class ImageUtils{
     }
     
     /**
-     * å°†bitmapè½¬åŒ–ä¸ºdrawable
+     * ½«bitmap×ª»¯Îªdrawable
      * @param bitmap
      * @return
      */
@@ -525,7 +525,7 @@ public class ImageUtils{
     }
     
     /**
-     * è·å–å›¾ç‰‡ç±»å‹
+     * »ñÈ¡Í¼Æ¬ÀàĞÍ
      * @param file
      * @return
      */

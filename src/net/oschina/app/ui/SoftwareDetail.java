@@ -3,7 +3,7 @@ package net.oschina.app.ui;
 import net.oschina.app.AppContext;
 import net.oschina.app.AppException;
 import net.oschina.app.AppManager;
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 import net.oschina.app.api.ApiClient;
 import net.oschina.app.bean.FavoriteList;
 import net.oschina.app.bean.Notice;
@@ -30,7 +30,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
- * 鏉烆垯娆㈢拠锔藉剰
+ * ��������
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -84,11 +84,11 @@ public class SoftwareDetail extends Activity {
         this.initView();        
         this.initData();
         
-        //濞夈劌鍞介崣灞藉毊閸忋劌鐫嗘禍瀣╂
+        //ע��˫��ȫ���¼�
     	this.regOnDoubleEvent();
     }
     
-    //閸掓繂顬婇崠鏍瀰閸ョ偓甯舵禒锟�   
+    //��ʼ����ͼ�ؼ�
     private void initView()
     {
     	mHeader = (FrameLayout)findViewById(R.id.software_detail_header);
@@ -126,8 +126,8 @@ public class SoftwareDetail extends Activity {
     	mRefresh.setOnClickListener(refreshClickListener);
     }
     
-    //閸掓繂顬婇崠鏍ㄥ付娴犺埖鏆熼幑锟�	
-    private void initData()
+    //��ʼ���ؼ�����
+	private void initData()
 	{
 		ident = getIntent().getStringExtra("ident");
 		
@@ -139,7 +139,7 @@ public class SoftwareDetail extends Activity {
 				{	
 					headButtonSwitch(DATA_LOAD_COMPLETE);
 					
-					//閺勵垰鎯侀弨鎯版
+					//�Ƿ��ղ�
 					if(softwareDetail.getFavorite() == 1)
 						mFavorite.setImageResource(R.drawable.head_favorite_y);
 					else
@@ -151,7 +151,7 @@ public class SoftwareDetail extends Activity {
 					mTitle.setText(title);
 					
 					String body = softwareDetail.getBody();
-					//鐠囪褰囬悽銊﹀煕鐠佸墽鐤嗛敍姘Ц閸氾箑濮炴潪鑺ユ瀮缁旂姴娴橀悧锟�姒涙顓婚張澧俰fi娑撳顬婄紒鍫濆鏉炶棄娴橀悧锟�	
+					//��ȡ�û����ã��Ƿ��������ͼƬ--Ĭ����wifi��ʼ�ռ���ͼƬ
 					boolean isLoadImage;
 					AppContext ac = (AppContext)getApplication();
 					if(AppContext.NETTYPE_WIFI == ac.getNetworkType()){
@@ -206,7 +206,7 @@ public class SoftwareDetail extends Activity {
 						mDownload.setOnClickListener(downloadClickListener);						
 					}
 					
-					//閸欐垿锟介柅姘辩叀楠炴寧鎸�
+					//����֪ͨ�㲥
 					if(msg.obj != null){
 						UIHelper.sendBroadCast(SoftwareDetail.this, (Notice)msg.obj);
 					}					
@@ -254,7 +254,7 @@ public class SoftwareDetail extends Activity {
     }
     
     /**
-     * 婢舵挳鍎撮幐澶愭尦鐏炴洜銇�
+     * ͷ����ťչʾ
      * @param type
      */
     private void headButtonSwitch(int type) {
@@ -360,7 +360,7 @@ public class SoftwareDetail extends Activity {
 	};
 	
 	/**
-	 * 濞夈劌鍞介崣灞藉毊閸忋劌鐫嗘禍瀣╂
+	 * ע��˫��ȫ���¼�
 	 */
 	private void regOnDoubleEvent(){
 		gd = new GestureDetector(this,new GestureDetector.SimpleOnGestureListener(){

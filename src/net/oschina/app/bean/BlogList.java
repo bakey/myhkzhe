@@ -14,16 +14,16 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.util.Xml;
 
 /**
- * åšå®¢åˆ—è¡¨å®ä½“ç±»
+ * ²©¿ÍÁĞ±íÊµÌåÀà
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
  */
 public class BlogList extends Entity{
 	
-	public static final int CATALOG_USER = 1;//ç”¨æˆ·åšå®¢
-	public static final int CATALOG_LATEST = 2;//æœ€æ–°åšå®¢
-	public static final int CATALOG_RECOMMEND = 3;//æ¨èåšå®¢
+	public static final int CATALOG_USER = 1;//ÓÃ»§²©¿Í
+	public static final int CATALOG_LATEST = 2;//×îĞÂ²©¿Í
+	public static final int CATALOG_RECOMMEND = 3;//ÍÆ¼ö²©¿Í
 	
 	public static final String TYPE_LATEST = "latest";
 	public static final String TYPE_RECOMMEND = "recommend";
@@ -45,13 +45,13 @@ public class BlogList extends Entity{
 	public static BlogList parse(InputStream inputStream) throws IOException, AppException {
 		BlogList bloglist = new BlogList();
 		Blog blog = null;
-        //è·å¾—XmlPullParserè§£æå™¨
+        //»ñµÃXmlPullParser½âÎöÆ÷
         XmlPullParser xmlParser = Xml.newPullParser();
         try {        	
             xmlParser.setInput(inputStream, UTF8);
-            //è·å¾—è§£æåˆ°çš„äº‹ä»¶ç±»åˆ«ï¼Œè¿™é‡Œæœ‰å¼€å§‹æ–‡æ¡£ï¼Œç»“æŸæ–‡æ¡£ï¼Œå¼€å§‹æ ‡ç­¾ï¼Œç»“æŸæ ‡ç­¾ï¼Œæ–‡æœ¬ç­‰ç­‰äº‹ä»¶ã€‚
+            //»ñµÃ½âÎöµ½µÄÊÂ¼şÀà±ğ£¬ÕâÀïÓĞ¿ªÊ¼ÎÄµµ£¬½áÊøÎÄµµ£¬¿ªÊ¼±êÇ©£¬½áÊø±êÇ©£¬ÎÄ±¾µÈµÈÊÂ¼ş¡£
             int evtType=xmlParser.getEventType();
-			//ä¸€ç›´å¾ªç¯ï¼Œç›´åˆ°æ–‡æ¡£ç»“æŸ    
+			//Ò»Ö±Ñ­»·£¬Ö±µ½ÎÄµµ½áÊø    
 			while(evtType!=XmlPullParser.END_DOCUMENT){ 
 	    		String tag = xmlParser.getName(); 
 			    switch(evtType){ 
@@ -103,7 +103,7 @@ public class BlogList extends Entity{
 				            	blog.setCommentCount(StringUtils.toInt(xmlParser.nextText(),0));
 				            }
 			    		}
-			            //é€šçŸ¥ä¿¡æ¯
+			            //Í¨ÖªĞÅÏ¢
 			            else if(tag.equalsIgnoreCase("notice"))
 			    		{
 			            	bloglist.setNotice(new Notice());
@@ -129,14 +129,14 @@ public class BlogList extends Entity{
 			    		}
 			    		break;
 			    	case XmlPullParser.END_TAG:	
-					   	//å¦‚æœé‡åˆ°æ ‡ç­¾ç»“æŸï¼Œåˆ™æŠŠå¯¹è±¡æ·»åŠ è¿›é›†åˆä¸­
+					   	//Èç¹ûÓöµ½±êÇ©½áÊø£¬Ôò°Ñ¶ÔÏóÌí¼Ó½ø¼¯ºÏÖĞ
 				       	if (tag.equalsIgnoreCase("blog") && blog != null) { 
 				       		bloglist.getBloglist().add(blog); 
 				       		blog = null; 
 				       	}
 				       	break; 
 			    }
-			    //å¦‚æœxmlæ²¡æœ‰ç»“æŸï¼Œåˆ™å¯¼èˆªåˆ°ä¸‹ä¸€ä¸ªèŠ‚ç‚¹
+			    //Èç¹ûxmlÃ»ÓĞ½áÊø£¬Ôòµ¼º½µ½ÏÂÒ»¸ö½Úµã
 			    evtType=xmlParser.next();
 			}		
         } catch (XmlPullParserException e) {

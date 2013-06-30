@@ -1,6 +1,6 @@
 package net.oschina.app.adapter;
 
-import com.hkzhe.wwtt.R;
+import com.hkzhe.app.R;
 
 import android.content.Context;
 import android.view.View;
@@ -10,16 +10,16 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 /**
- * 閻劍鍩涚悰銊﹀剰Adapter缁拷
+ * �û�����Adapter��
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-8-9
  */
 public class GridViewFaceAdapter extends BaseAdapter
 {
-	// 鐎规矮绠烠ontext
+	// ����Context
 	private Context	mContext;
-	// 鐎规矮绠熼弫鏉戠�閺佹壆绮�閸楀啿娴橀悧鍥ㄧ爱
+	// ������������ ��ͼƬԴ
 	private int[] mImageIds;
 
 	public GridViewFaceAdapter(Context c)
@@ -47,20 +47,20 @@ public class GridViewFaceAdapter extends BaseAdapter
 		};
 	}
 
-	// 閼惧嘲褰囬崶鍓у閻ㄥ嫪閲滈弫锟�	
+	// ��ȡͼƬ�ĸ���
 	public int getCount()
 	{
 		return mImageIds.length;
 	}
 
-	// 閼惧嘲褰囬崶鍓у閸︺劌绨辨稉顓犳畱娴ｅ秶鐤�
+	// ��ȡͼƬ�ڿ��е�λ��
 	public Object getItem(int position)
 	{
 		return position;
 	}
 
 
-	// 閼惧嘲褰囬崶鍓уID
+	// ��ȡͼƬID
 	public long getItemId(int position)
 	{
 		return mImageIds[position];
@@ -73,9 +73,9 @@ public class GridViewFaceAdapter extends BaseAdapter
 		if (convertView == null)
 		{
 			imageView = new ImageView(mContext);
-			// 鐠佸墽鐤嗛崶鍓уn鑴硁閺勫墽銇�
+			// ����ͼƬn��n��ʾ
 			imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-			// 鐠佸墽鐤嗛弰鍓с仛濮ｆ柧绶ョ猾璇茬�
+			// ������ʾ��������
 			imageView.setScaleType(ImageView.ScaleType.CENTER);
 		}
 		else
@@ -93,6 +93,5 @@ public class GridViewFaceAdapter extends BaseAdapter
 		
 		return imageView;
 	}
-
 
 }

@@ -9,7 +9,7 @@ import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
 /**
- * åŠ å¯†è§£å¯†å·¥å…·åŒ…
+ * ¼ÓÃÜ½âÃÜ¹¤¾ß°ü
  * @author Winter Lau
  * @date 2011-12-26
  */
@@ -18,11 +18,11 @@ public class CyptoUtils {
 	public static final String ALGORITHM_DES = "DES/CBC/PKCS5Padding";
 	
     /**
-     * DESç®—æ³•ï¼ŒåŠ å¯†
+     * DESËã·¨£¬¼ÓÃÜ
      *
-     * @param data å¾…åŠ å¯†å­—ç¬¦ä¸²
-     * @param key  åŠ å¯†ç§é’¥ï¼Œé•¿åº¦ä¸èƒ½å¤Ÿå°äº8ä½
-     * @return åŠ å¯†åçš„å­—èŠ‚æ•°ç»„ï¼Œä¸€èˆ¬ç»“åˆBase64ç¼–ç ä½¿ç”¨
+     * @param data ´ı¼ÓÃÜ×Ö·û´®
+     * @param key  ¼ÓÃÜË½Ô¿£¬³¤¶È²»ÄÜ¹»Ğ¡ÓÚ8Î»
+     * @return ¼ÓÃÜºóµÄ×Ö½ÚÊı×é£¬Ò»°ã½áºÏBase64±àÂëÊ¹ÓÃ
      * @throws InvalidAlgorithmParameterException 
      * @throws Exception 
      */
@@ -32,7 +32,7 @@ public class CyptoUtils {
     	try{
 	    	DESKeySpec dks = new DESKeySpec(key.getBytes());	    	
 	    	SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
-	        //keyçš„é•¿åº¦ä¸èƒ½å¤Ÿå°äº8ä½å­—èŠ‚
+	        //keyµÄ³¤¶È²»ÄÜ¹»Ğ¡ÓÚ8Î»×Ö½Ú
 	        Key secretKey = keyFactory.generateSecret(dks);
 	        Cipher cipher = Cipher.getInstance(ALGORITHM_DES);
 	        IvParameterSpec iv = new IvParameterSpec("12345678".getBytes());
@@ -47,12 +47,12 @@ public class CyptoUtils {
     }
 
     /**
-     * DESç®—æ³•ï¼Œè§£å¯†
+     * DESËã·¨£¬½âÃÜ
      *
-     * @param data å¾…è§£å¯†å­—ç¬¦ä¸²
-     * @param key  è§£å¯†ç§é’¥ï¼Œé•¿åº¦ä¸èƒ½å¤Ÿå°äº8ä½
-     * @return è§£å¯†åçš„å­—èŠ‚æ•°ç»„
-     * @throws Exception å¼‚å¸¸
+     * @param data ´ı½âÃÜ×Ö·û´®
+     * @param key  ½âÃÜË½Ô¿£¬³¤¶È²»ÄÜ¹»Ğ¡ÓÚ8Î»
+     * @return ½âÃÜºóµÄ×Ö½ÚÊı×é
+     * @throws Exception Òì³£
      */
     public static String decode(String key,String data) {
     	if(data == null)
@@ -60,7 +60,7 @@ public class CyptoUtils {
         try {
 	    	DESKeySpec dks = new DESKeySpec(key.getBytes());
 	    	SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
-            //keyçš„é•¿åº¦ä¸èƒ½å¤Ÿå°äº8ä½å­—èŠ‚
+            //keyµÄ³¤¶È²»ÄÜ¹»Ğ¡ÓÚ8Î»×Ö½Ú
             Key secretKey = keyFactory.generateSecret(dks);
             Cipher cipher = Cipher.getInstance(ALGORITHM_DES);
             IvParameterSpec iv = new IvParameterSpec("12345678".getBytes());
@@ -74,7 +74,7 @@ public class CyptoUtils {
     }
 
 	/**
-	 * äºŒè¡Œåˆ¶è½¬å­—ç¬¦ä¸²
+	 * ¶şĞĞÖÆ×ª×Ö·û´®
 	 * @param b
 	 * @return
 	 */
