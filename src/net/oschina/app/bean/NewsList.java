@@ -1,9 +1,7 @@
 package net.oschina.app.bean;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,17 +11,15 @@ import net.oschina.app.common.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.hkzhe.wwtt.common.Utils;
 
-import android.util.Log;
 import android.util.Xml;
 
 /**
- * æ–°é—»åˆ—è¡¨å®žä½“ç±»
+ * ÐÂÎÅÁÐ±íÊµÌåÀà
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -51,7 +47,6 @@ public class NewsList extends Entity{
 	public List<News> getNewslist() {
 		return newslist;
 	}
-	
 	public static NewsList parseJSON( InputStream inputStream ) throws IOException,AppException {
 		NewsList newslist = new NewsList();
 		News news = null;
@@ -88,12 +83,14 @@ public class NewsList extends Entity{
 	
 	public static NewsList parse(InputStream inputStream) throws IOException, AppException {
 		NewsList newslist = new NewsList();
-
 		News news = null;
+        //»ñµÃXmlPullParser½âÎöÆ÷
         XmlPullParser xmlParser = Xml.newPullParser();
-        try {
-            xmlParser.setInput(inputStream, UTF8);            
-            int evtType=xmlParser.getEventType();			   
+        try {        	
+            xmlParser.setInput(inputStream, UTF8);
+            //»ñµÃ½âÎöµ½µÄÊÂ¼þÀà±ð£¬ÕâÀïÓÐ¿ªÊ¼ÎÄµµ£¬½áÊøÎÄµµ£¬¿ªÊ¼±êÇ©£¬½áÊø±êÇ©£¬ÎÄ±¾µÈµÈÊÂ¼þ¡£
+            int evtType=xmlParser.getEventType();
+			//Ò»Ö±Ñ­»·£¬Ö±µ½ÎÄµµ½áÊø    
 			while(evtType!=XmlPullParser.END_DOCUMENT){ 
 	    		String tag = xmlParser.getName(); 
 			    switch(evtType){ 
@@ -108,8 +105,7 @@ public class NewsList extends Entity{
 			    		}
 			    		else if(tag.equalsIgnoreCase("newsCount")) 
 			    		{
-			    			int newsCount = StringUtils.toInt(xmlParser.nextText(),0);			 
-			    			newslist.newsCount = newsCount;
+			    			newslist.newsCount = StringUtils.toInt(xmlParser.nextText(),0);
 			    		}
 			    		else if (tag.equalsIgnoreCase(News.NODE_START)) 
 			    		{ 
@@ -157,10 +153,8 @@ public class NewsList extends Entity{
 				            {			            	
 				            	news.getNewType().authoruid2 = StringUtils.toInt(xmlParser.nextText(),0); 
 				            }
-
 			    		}
-			            
-
+			            //Í¨ÖªÐÅÏ¢
 			            else if(tag.equalsIgnoreCase("notice"))
 			    		{
 			            	newslist.setNotice(new Notice());
@@ -185,14 +179,15 @@ public class NewsList extends Entity{
 				            }
 			    		}
 			    		break;
-			    	case XmlPullParser.END_TAG:						 
+			    	case XmlPullParser.END_TAG:	
+					   	//Èç¹ûÓöµ½±êÇ©½áÊø£¬Ôò°Ñ¶ÔÏóÌí¼Ó½ø¼¯ºÏÖÐ
 				       	if (tag.equalsIgnoreCase("news") && news != null) { 
-				    	   newslist.getNewslist().add(news);				    	   
+				    	   newslist.getNewslist().add(news); 
 				           news = null; 
 				       	}
 				       	break; 
 			    }
-			    
+			    //Èç¹ûxmlÃ»ÓÐ½áÊø£¬Ôòµ¼º½µ½ÏÂÒ»¸ö½Úµã
 			    int a =xmlParser.next();
 			    evtType=a;
 			}		

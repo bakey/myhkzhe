@@ -1,8 +1,8 @@
 <resources>
 
      <string name="hello">Hello World, AndroidBuildingMusicPlayerActivity!</string>
-    <string name="app_name">亚洲旅游精选</string>
-    <string name="remote_host">www.hkzhe.com</string>
+    <string name="app_name">栗子走天下</string>
+    <string name="remote_host">app.hkzhe.com</string>
     <string name="AudioTitle">当前没有播放的故事</string>
     
     <string name="main_menu_login">用户登录</string>
@@ -18,11 +18,11 @@
     <string name="main_menu_setting">系统设置</string>
     <string name="main_menu_exit">退出程序</string>
     
-    <string name="top_title">听听大全</string>
-    <string name="frame_title_news_lastest">最新帖子</string>
-    <string name="frame_title_news_blog">最新博客</string>
-    <string name="frame_title_news_category">推荐酒店</string>
-    <string name="frame_title_news_recommend">精品帖子</string>
+    <string name="top_title">栗子走天下</string>
+    <string name="frame_title_threads_latest">最新帖子</string>
+    <string name="frame_title_threads_hot">热门帖子</string>
+    <string name="frame_title_refined_hotels">精品酒店</string>
+    
     <string name="frame_title_question_ask">问答</string>
     <string name="frame_title_question_share">分享</string>
     <string name="frame_title_question_other">综合</string>

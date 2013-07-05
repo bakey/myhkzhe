@@ -39,7 +39,7 @@
 		android:layout_marginRight="2.0dip"
 		android:background="@drawable/frame_icon_search"/>
    	
-    <ImageButton
+    <!--  ImageButton
     	android:id="@+id/main_head_pub_post"
   		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -57,5 +57,5 @@
 		android:layout_alignParentRight="true"
 		android:layout_marginRight="2.0dip"
 		android:background="@drawable/frame_icon_tweet"
-		android:visibility="gone"/>
+		android:visibility="gone"/ -->
 </RelativeLayout>

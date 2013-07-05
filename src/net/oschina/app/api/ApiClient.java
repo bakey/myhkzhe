@@ -15,7 +15,6 @@ import net.oschina.app.bean.ActiveList;
 import net.oschina.app.bean.Blog;
 import net.oschina.app.bean.BlogCommentList;
 import net.oschina.app.bean.BlogList;
-import net.oschina.app.bean.CategoryList;
 import net.oschina.app.bean.CommentList;
 import net.oschina.app.bean.FavoriteList;
 import net.oschina.app.bean.FriendList;
@@ -54,10 +53,9 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 /**
- * APIå®¢æˆ·ç«¯æ¥å£ï¼šç”¨äºè®¿é—®ç½‘ç»œæ•°æ®
+ * API¿Í»§¶Ë½Ó¿Ú£ºÓÃÓÚ·ÃÎÊÍøÂçÊı¾İ
  * @author liux (http://my.oschina.net/liux)
  * @version 1.0
  * @created 2012-3-21
@@ -89,11 +87,11 @@ public class ApiClient {
 	private static String getUserAgent(AppContext appContext) {
 		if(appUserAgent == null || appUserAgent == "") {
 			StringBuilder ua = new StringBuilder("OSChina.NET");
-			ua.append('/'+appContext.getPackageInfo().versionName+'_'+appContext.getPackageInfo().versionCode);//Appç‰ˆæœ¬
-			ua.append("/Android");//æ‰‹æœºç³»ç»Ÿå¹³å°
-			ua.append("/"+android.os.Build.VERSION.RELEASE);//æ‰‹æœºç³»ç»Ÿç‰ˆæœ¬
-			ua.append("/"+android.os.Build.MODEL); //æ‰‹æœºå‹å·
-			ua.append("/"+appContext.getAppId());//å®¢æˆ·ç«¯å”¯ä¸€æ ‡è¯†
+			ua.append('/'+appContext.getPackageInfo().versionName+'_'+appContext.getPackageInfo().versionCode);//App°æ±¾
+			ua.append("/Android");//ÊÖ»úÏµÍ³Æ½Ì¨
+			ua.append("/"+android.os.Build.VERSION.RELEASE);//ÊÖ»úÏµÍ³°æ±¾
+			ua.append("/"+android.os.Build.MODEL); //ÊÖ»úĞÍºÅ
+			ua.append("/"+appContext.getAppId());//¿Í»§¶ËÎ¨Ò»±êÊ¶
 			appUserAgent = ua.toString();
 		}
 		return appUserAgent;
@@ -101,22 +99,22 @@ public class ApiClient {
 	
 	private static HttpClient getHttpClient() {        
         HttpClient httpClient = new HttpClient();
-		// è®¾ç½® HttpClient æ¥æ”¶ Cookie,ç”¨ä¸æµè§ˆå™¨ä¸€æ ·çš„ç­–ç•¥
+		// ÉèÖÃ HttpClient ½ÓÊÕ Cookie,ÓÃÓëä¯ÀÀÆ÷Ò»ÑùµÄ²ßÂÔ
 		httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-        // è®¾ç½® é»˜è®¤çš„è¶…æ—¶é‡è¯•å¤„ç†ç­–ç•¥
+        // ÉèÖÃ Ä¬ÈÏµÄ³¬Ê±ÖØÊÔ´¦Àí²ßÂÔ
 		httpClient.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler());
-		// è®¾ç½® è¿æ¥è¶…æ—¶æ—¶é—´
+		// ÉèÖÃ Á¬½Ó³¬Ê±Ê±¼ä
 		httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(TIMEOUT_CONNECTION);
-		// è®¾ç½® è¯»æ•°æ®è¶…æ—¶æ—¶é—´ 
+		// ÉèÖÃ ¶ÁÊı¾İ³¬Ê±Ê±¼ä 
 		httpClient.getHttpConnectionManager().getParams().setSoTimeout(TIMEOUT_SOCKET);
-		// è®¾ç½® å­—ç¬¦é›†
+		// ÉèÖÃ ×Ö·û¼¯
 		httpClient.getParams().setContentCharset(UTF_8);
 		return httpClient;
 	}	
 	
 	private static GetMethod getHttpGet(String url, String cookie, String userAgent) {
 		GetMethod httpGet = new GetMethod(url);
-		// è®¾ç½® è¯·æ±‚è¶…æ—¶æ—¶é—´
+		// ÉèÖÃ ÇëÇó³¬Ê±Ê±¼ä
 		httpGet.getParams().setSoTimeout(TIMEOUT_SOCKET);
 		httpGet.setRequestHeader("Host", URLs.HOST);
 		httpGet.setRequestHeader("Connection","Keep-Alive");
@@ -127,7 +125,7 @@ public class ApiClient {
 	
 	private static PostMethod getHttpPost(String url, String cookie, String userAgent) {
 		PostMethod httpPost = new PostMethod(url);
-		// è®¾ç½® è¯·æ±‚è¶…æ—¶æ—¶é—´
+		// ÉèÖÃ ÇëÇó³¬Ê±Ê±¼ä
 		httpPost.getParams().setSoTimeout(TIMEOUT_SOCKET);
 		httpPost.setRequestHeader("Host", URLs.HOST);
 		httpPost.setRequestHeader("Connection","Keep-Alive");
@@ -146,7 +144,7 @@ public class ApiClient {
 			url.append(name);
 			url.append('=');
 			url.append(String.valueOf(params.get(name)));
-			//ä¸åšURLEncoderå¤„ç†
+			//²»×öURLEncoder´¦Àí
 			//url.append(URLEncoder.encode(String.valueOf(params.get(name)), UTF_8));
 		}
 
@@ -154,7 +152,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * getè¯·æ±‚URL
+	 * getÇëÇóURL
 	 * @param url
 	 * @throws AppException 
 	 */
@@ -188,7 +186,7 @@ public class ApiClient {
 					} catch (InterruptedException e1) {} 
 					continue;
 				}
-				// å‘ç”Ÿè‡´å‘½çš„å¼‚å¸¸ï¼Œå¯èƒ½æ˜¯åè®®ä¸å¯¹æˆ–è€…è¿”å›çš„å†…å®¹æœ‰é—®é¢˜
+				// ·¢ÉúÖÂÃüµÄÒì³££¬¿ÉÄÜÊÇĞ­Òé²»¶Ô»òÕß·µ»ØµÄÄÚÈİÓĞÎÊÌâ
 				e.printStackTrace();
 				throw AppException.http(e);
 			} catch (IOException e) {
@@ -199,11 +197,11 @@ public class ApiClient {
 					} catch (InterruptedException e1) {} 
 					continue;
 				}
-				// å‘ç”Ÿç½‘ç»œå¼‚å¸¸
+				// ·¢ÉúÍøÂçÒì³£
 				e.printStackTrace();
 				throw AppException.network(e);
 			} finally {
-				// é‡Šæ”¾è¿æ¥
+				// ÊÍ·ÅÁ¬½Ó
 				httpGet.releaseConnection();
 				httpClient = null;
 			}
@@ -225,7 +223,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * å…¬ç”¨postæ–¹æ³•
+	 * ¹«ÓÃpost·½·¨
 	 * @param url
 	 * @param params
 	 * @param files
@@ -239,7 +237,7 @@ public class ApiClient {
 		HttpClient httpClient = null;
 		PostMethod httpPost = null;
 		
-		//postè¡¨å•å‚æ•°å¤„ç†
+		//post±íµ¥²ÎÊı´¦Àí
 		int length = (params == null ? 0 : params.size()) + (files == null ? 0 : files.size());
 		Part[] parts = new Part[length];
 		int i = 0;
@@ -278,7 +276,7 @@ public class ApiClient {
 		            for (Cookie ck : cookies) {
 		                tmpcookies += ck.toString()+";";
 		            }
-		            //ä¿å­˜cookie   
+		            //±£´æcookie   
 	        		if(appContext != null && tmpcookies != ""){
 	        			appContext.setProperty("cookie", tmpcookies);
 	        			appCookie = tmpcookies;
@@ -295,7 +293,7 @@ public class ApiClient {
 					} catch (InterruptedException e1) {} 
 					continue;
 				}
-				// å‘ç”Ÿè‡´å‘½çš„å¼‚å¸¸ï¼Œå¯èƒ½æ˜¯åè®®ä¸å¯¹æˆ–è€…è¿”å›çš„å†…å®¹æœ‰é—®é¢˜
+				// ·¢ÉúÖÂÃüµÄÒì³££¬¿ÉÄÜÊÇĞ­Òé²»¶Ô»òÕß·µ»ØµÄÄÚÈİÓĞÎÊÌâ
 				e.printStackTrace();
 				throw AppException.http(e);
 			} catch (IOException e) {
@@ -306,11 +304,11 @@ public class ApiClient {
 					} catch (InterruptedException e1) {} 
 					continue;
 				}
-				// å‘ç”Ÿç½‘ç»œå¼‚å¸¸
+				// ·¢ÉúÍøÂçÒì³£
 				e.printStackTrace();
 				throw AppException.network(e);
 			} finally {
-				// é‡Šæ”¾è¿æ¥
+				// ÊÍ·ÅÁ¬½Ó
 				httpPost.releaseConnection();
 				httpClient = null;
 			}
@@ -332,7 +330,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * postè¯·æ±‚URL
+	 * postÇëÇóURL
 	 * @param url
 	 * @param params
 	 * @param files
@@ -345,7 +343,7 @@ public class ApiClient {
 	}	
 	
 	/**
-	 * è·å–ç½‘ç»œå›¾ç‰‡
+	 * »ñÈ¡ÍøÂçÍ¼Æ¬
 	 * @param url
 	 * @return
 	 */
@@ -376,7 +374,7 @@ public class ApiClient {
 					} catch (InterruptedException e1) {} 
 					continue;
 				}
-				// å‘ç”Ÿè‡´å‘½çš„å¼‚å¸¸ï¼Œå¯èƒ½æ˜¯åè®®ä¸å¯¹æˆ–è€…è¿”å›çš„å†…å®¹æœ‰é—®é¢˜
+				// ·¢ÉúÖÂÃüµÄÒì³££¬¿ÉÄÜÊÇĞ­Òé²»¶Ô»òÕß·µ»ØµÄÄÚÈİÓĞÎÊÌâ
 				e.printStackTrace();
 				throw AppException.http(e);
 			} catch (IOException e) {
@@ -387,11 +385,11 @@ public class ApiClient {
 					} catch (InterruptedException e1) {} 
 					continue;
 				}
-				// å‘ç”Ÿç½‘ç»œå¼‚å¸¸
+				// ·¢ÉúÍøÂçÒì³£
 				e.printStackTrace();
 				throw AppException.network(e);
 			} finally {
-				// é‡Šæ”¾è¿æ¥
+				// ÊÍ·ÅÁ¬½Ó
 				httpGet.releaseConnection();
 				httpClient = null;
 			}
@@ -400,7 +398,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * æ£€æŸ¥ç‰ˆæœ¬æ›´æ–°
+	 * ¼ì²é°æ±¾¸üĞÂ
 	 * @param url
 	 * @return
 	 */
@@ -415,7 +413,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * ç™»å½•ï¼Œ è‡ªåŠ¨å¤„ç†cookie
+	 * µÇÂ¼£¬ ×Ô¶¯´¦Àícookie
 	 * @param url
 	 * @param username
 	 * @param pwd
@@ -443,7 +441,7 @@ public class ApiClient {
 	}
 
 	/**
-	 * æˆ‘çš„ä¸ªäººèµ„æ–™
+	 * ÎÒµÄ¸öÈË×ÊÁÏ
 	 * @param appContext
 	 * @param uid
 	 * @return
@@ -463,12 +461,12 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–ç”¨æˆ·ä¿¡æ¯ä¸ªäººä¸“é¡µï¼ˆåŒ…å«è¯¥ç”¨æˆ·çš„åŠ¨æ€ä¿¡æ¯ä»¥åŠä¸ªäººä¿¡æ¯ï¼‰
-	 * @param uid è‡ªå·±çš„uid
-	 * @param hisuid è¢«æŸ¥çœ‹ç”¨æˆ·çš„uid
-	 * @param hisname è¢«æŸ¥çœ‹ç”¨æˆ·çš„ç”¨æˆ·å
-	 * @param pageIndex é¡µé¢ç´¢å¼•
-	 * @param pageSize æ¯é¡µè¯»å–çš„åŠ¨æ€ä¸ªæ•°
+	 * »ñÈ¡ÓÃ»§ĞÅÏ¢¸öÈË×¨Ò³£¨°üº¬¸ÃÓÃ»§µÄ¶¯Ì¬ĞÅÏ¢ÒÔ¼°¸öÈËĞÅÏ¢£©
+	 * @param uid ×Ô¼ºµÄuid
+	 * @param hisuid ±»²é¿´ÓÃ»§µÄuid
+	 * @param hisname ±»²é¿´ÓÃ»§µÄÓÃ»§Ãû
+	 * @param pageIndex Ò³ÃæË÷Òı
+	 * @param pageSize Ã¿Ò³¶ÁÈ¡µÄ¶¯Ì¬¸öÊı
 	 * @return
 	 * @throws AppException
 	 */
@@ -490,10 +488,10 @@ public class ApiClient {
 	}
 	
 	/**
-	 * æ›´æ–°ç”¨æˆ·ä¹‹é—´å…³ç³»ï¼ˆåŠ å…³æ³¨ã€å–æ¶ˆå…³æ³¨ï¼‰
-	 * @param uid è‡ªå·±çš„uid
-	 * @param hisuid å¯¹æ–¹ç”¨æˆ·çš„uid
-	 * @param newrelation 0:å–æ¶ˆå¯¹ä»–çš„å…³æ³¨ 1:å…³æ³¨ä»–
+	 * ¸üĞÂÓÃ»§Ö®¼ä¹ØÏµ£¨¼Ó¹Ø×¢¡¢È¡Ïû¹Ø×¢£©
+	 * @param uid ×Ô¼ºµÄuid
+	 * @param hisuid ¶Ô·½ÓÃ»§µÄuid
+	 * @param newrelation 0:È¡Ïû¶ÔËûµÄ¹Ø×¢ 1:¹Ø×¢Ëû
 	 * @return
 	 * @throws AppException
 	 */
@@ -513,7 +511,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–ç”¨æˆ·é€šçŸ¥ä¿¡æ¯
+	 * »ñÈ¡ÓÃ»§Í¨ÖªĞÅÏ¢
 	 * @param uid
 	 * @return
 	 * @throws AppException
@@ -532,9 +530,9 @@ public class ApiClient {
 	}
 	
 	/**
-	 * æ¸…ç©ºé€šçŸ¥æ¶ˆæ¯
+	 * Çå¿ÕÍ¨ÖªÏûÏ¢
 	 * @param uid
-	 * @param type 1:@æˆ‘çš„ä¿¡æ¯ 2:æœªè¯»æ¶ˆæ¯ 3:è¯„è®ºä¸ªæ•° 4:æ–°ç²‰ä¸ä¸ªæ•°
+	 * @param type 1:@ÎÒµÄĞÅÏ¢ 2:Î´¶ÁÏûÏ¢ 3:ÆÀÂÛ¸öÊı 4:ĞÂ·ÛË¿¸öÊı
 	 * @return
 	 * @throws AppException
 	 */
@@ -553,9 +551,9 @@ public class ApiClient {
 	}
 	
 	/**
-	 * ç”¨æˆ·ç²‰ä¸ã€å…³æ³¨äººåˆ—è¡¨
+	 * ÓÃ»§·ÛË¿¡¢¹Ø×¢ÈËÁĞ±í
 	 * @param uid
-	 * @param relation 0:æ˜¾ç¤ºè‡ªå·±çš„ç²‰ä¸ 1:æ˜¾ç¤ºè‡ªå·±çš„å…³æ³¨è€…
+	 * @param relation 0:ÏÔÊ¾×Ô¼ºµÄ·ÛË¿ 1:ÏÔÊ¾×Ô¼ºµÄ¹Ø×¢Õß
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
@@ -579,7 +577,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–èµ„è®¯åˆ—è¡¨
+	 * »ñÈ¡×ÊÑ¶ÁĞ±í
 	 * @param url
 	 * @param catalog
 	 * @param pageIndex
@@ -593,7 +591,7 @@ public class ApiClient {
 			put("pageIndex", pageIndex);
 			put("pageSize", pageSize);
 		}});
-		Log.d("bakey" , "get url = " + newUrl );		
+		
 		try{
 			return NewsList.parseJSON(http_get(appContext, newUrl));		
 		}catch(Exception e){
@@ -604,7 +602,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–èµ„è®¯çš„è¯¦æƒ…
+	 * »ñÈ¡×ÊÑ¶µÄÏêÇé
 	 * @param url
 	 * @param news_id
 	 * @return
@@ -625,7 +623,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–æŸç”¨æˆ·çš„åšå®¢åˆ—è¡¨
+	 * »ñÈ¡Ä³ÓÃ»§µÄ²©¿ÍÁĞ±í
 	 * @param authoruid
 	 * @param uid
 	 * @param pageIndex
@@ -650,25 +648,10 @@ public class ApiClient {
 			throw AppException.network(e);
 		}
 	}
-	public static CategoryList getCategoryList(AppContext appContext, final String type, final int pageIndex, final int pageSize) throws AppException {
-		String newUrl = _MakeURL(URLs.CATEGORY_LIST, new HashMap<String, Object>(){{
-			put("type", type);
-			put("pageIndex", pageIndex);
-			put("pageSize", pageSize);
-		}});
-
-		try{
-			return CategoryList.parse(http_get(appContext, newUrl));		
-		}catch(Exception e){
-			if(e instanceof AppException)
-				throw (AppException)e;
-			throw AppException.network(e);
-		}
-	}
 	
 	/**
-	 * è·å–åšå®¢åˆ—è¡¨
-	 * @param type æ¨èï¼šrecommend æœ€æ–°ï¼šlatest
+	 * »ñÈ¡²©¿ÍÁĞ±í
+	 * @param type ÍÆ¼ö£ºrecommend ×îĞÂ£ºlatest
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
@@ -691,7 +674,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * åˆ é™¤æŸç”¨æˆ·çš„åšå®¢
+	 * É¾³ıÄ³ÓÃ»§µÄ²©¿Í
 	 * @param uid
 	 * @param authoruid
 	 * @param id
@@ -714,7 +697,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–åšå®¢è¯¦æƒ…
+	 * »ñÈ¡²©¿ÍÏêÇé
 	 * @param blog_id
 	 * @return
 	 * @throws AppException
@@ -734,7 +717,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–è½¯ä»¶è¯¦æƒ…
+	 * »ñÈ¡Èí¼şÏêÇé
 	 * @param soft_id
 	 * @return
 	 * @throws AppException
@@ -754,7 +737,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–å¸–å­åˆ—è¡¨
+	 * »ñÈ¡Ìû×ÓÁĞ±í
 	 * @param url
 	 * @param catalog
 	 * @param pageIndex
@@ -778,7 +761,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–å¸–å­çš„è¯¦æƒ…
+	 * »ñÈ¡Ìû×ÓµÄÏêÇé
 	 * @param url
 	 * @param post_id
 	 * @return
@@ -798,8 +781,8 @@ public class ApiClient {
 	}
 	
 	/**
-	 * å‘å¸–å­
-	 * @param post ï¼ˆuidã€titleã€catalogã€contentã€isNoticeMeï¼‰
+	 * ·¢Ìû×Ó
+	 * @param post £¨uid¡¢title¡¢catalog¡¢content¡¢isNoticeMe£©
 	 * @return
 	 * @throws AppException
 	 */
@@ -821,7 +804,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–åŠ¨å¼¹åˆ—è¡¨
+	 * »ñÈ¡¶¯µ¯ÁĞ±í
 	 * @param uid
 	 * @param pageIndex
 	 * @param pageSize
@@ -845,7 +828,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–åŠ¨å¼¹è¯¦æƒ…
+	 * »ñÈ¡¶¯µ¯ÏêÇé
 	 * @param tweet_id
 	 * @return
 	 * @throws AppException
@@ -864,7 +847,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * å‘åŠ¨å¼¹
+	 * ·¢¶¯µ¯
 	 * @param Tweet-uid & msg & image
 	 * @return
 	 * @throws AppException
@@ -888,7 +871,7 @@ public class ApiClient {
 	}
 
 	/**
-	 * åˆ é™¤åŠ¨å¼¹
+	 * É¾³ı¶¯µ¯
 	 * @param uid
 	 * @param tweetid
 	 * @return
@@ -909,9 +892,9 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–åŠ¨æ€åˆ—è¡¨
+	 * »ñÈ¡¶¯Ì¬ÁĞ±í
 	 * @param uid
-	 * @param catalog 1æœ€æ–°åŠ¨æ€  2@æˆ‘  3è¯„è®º  4æˆ‘è‡ªå·± 
+	 * @param catalog 1×îĞÂ¶¯Ì¬  2@ÎÒ  3ÆÀÂÛ  4ÎÒ×Ô¼º 
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
@@ -935,7 +918,7 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–ç•™è¨€åˆ—è¡¨
+	 * »ñÈ¡ÁôÑÔÁĞ±í
 	 * @param uid
 	 * @param pageIndex
 	 * @return
@@ -958,10 +941,10 @@ public class ApiClient {
 	}
 	
 	/**
-	 * å‘é€ç•™è¨€
-	 * @param uid ç™»å½•ç”¨æˆ·uid
-	 * @param receiver æ¥å—è€…çš„ç”¨æˆ·id
-	 * @param content æ¶ˆæ¯å†…å®¹ï¼Œæ³¨æ„ä¸èƒ½è¶…è¿‡250ä¸ªå­—ç¬¦
+	 * ·¢ËÍÁôÑÔ
+	 * @param uid µÇÂ¼ÓÃ»§uid
+	 * @param receiver ½ÓÊÜÕßµÄÓÃ»§id
+	 * @param content ÏûÏ¢ÄÚÈİ£¬×¢Òâ²»ÄÜ³¬¹ı250¸ö×Ö·û
 	 * @return
 	 * @throws AppException
 	 */
@@ -981,10 +964,10 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è½¬å‘ç•™è¨€
-	 * @param uid ç™»å½•ç”¨æˆ·uid
-	 * @param receiver æ¥å—è€…çš„ç”¨æˆ·å
-	 * @param content æ¶ˆæ¯å†…å®¹ï¼Œæ³¨æ„ä¸èƒ½è¶…è¿‡250ä¸ªå­—ç¬¦
+	 * ×ª·¢ÁôÑÔ
+	 * @param uid µÇÂ¼ÓÃ»§uid
+	 * @param receiver ½ÓÊÜÕßµÄÓÃ»§Ãû
+	 * @param content ÏûÏ¢ÄÚÈİ£¬×¢Òâ²»ÄÜ³¬¹ı250¸ö×Ö·û
 	 * @return
 	 * @throws AppException
 	 */
@@ -1004,9 +987,9 @@ public class ApiClient {
 	}
 	
 	/**
-	 * åˆ é™¤ç•™è¨€
-	 * @param uid ç™»å½•ç”¨æˆ·uid
-	 * @param friendid ç•™è¨€è€…id
+	 * É¾³ıÁôÑÔ
+	 * @param uid µÇÂ¼ÓÃ»§uid
+	 * @param friendid ÁôÑÔÕßid
 	 * @return
 	 * @throws AppException
 	 */
@@ -1025,8 +1008,8 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–åšå®¢è¯„è®ºåˆ—è¡¨
-	 * @param id åšå®¢id
+	 * »ñÈ¡²©¿ÍÆÀÂÛÁĞ±í
+	 * @param id ²©¿Íid
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
@@ -1049,10 +1032,10 @@ public class ApiClient {
 	}
 	
 	/**
-	 * å‘è¡¨åšå®¢è¯„è®º
-	 * @param blog åšå®¢id
-	 * @param uid ç™»é™†ç”¨æˆ·çš„uid
-	 * @param content è¯„è®ºå†…å®¹
+	 * ·¢±í²©¿ÍÆÀÂÛ
+	 * @param blog ²©¿Íid
+	 * @param uid µÇÂ½ÓÃ»§µÄuid
+	 * @param content ÆÀÂÛÄÚÈİ
 	 * @return
 	 * @throws AppException
 	 */
@@ -1072,12 +1055,12 @@ public class ApiClient {
 	}
 	
 	/**
-	 * å‘è¡¨åšå®¢è¯„è®º
-	 * @param blog åšå®¢id
-	 * @param uid ç™»é™†ç”¨æˆ·çš„uid
-	 * @param content è¯„è®ºå†…å®¹
-	 * @param reply_id è¯„è®ºid
-	 * @param objuid è¢«è¯„è®ºçš„è¯„è®ºå‘è¡¨è€…çš„uid
+	 * ·¢±í²©¿ÍÆÀÂÛ
+	 * @param blog ²©¿Íid
+	 * @param uid µÇÂ½ÓÃ»§µÄuid
+	 * @param content ÆÀÂÛÄÚÈİ
+	 * @param reply_id ÆÀÂÛid
+	 * @param objuid ±»ÆÀÂÛµÄÆÀÂÛ·¢±íÕßµÄuid
 	 * @return
 	 * @throws AppException
 	 */
@@ -1099,12 +1082,12 @@ public class ApiClient {
 	}
 	
 	/**
-	 * åˆ é™¤åšå®¢è¯„è®º
-	 * @param uid ç™»å½•ç”¨æˆ·çš„uid
-	 * @param blogid åšå®¢id
-	 * @param replyid è¯„è®ºid
-	 * @param authorid è¯„è®ºå‘è¡¨è€…çš„uid
-	 * @param owneruid åšå®¢ä½œè€…uid
+	 * É¾³ı²©¿ÍÆÀÂÛ
+	 * @param uid µÇÂ¼ÓÃ»§µÄuid
+	 * @param blogid ²©¿Íid
+	 * @param replyid ÆÀÂÛid
+	 * @param authorid ÆÀÂÛ·¢±íÕßµÄuid
+	 * @param owneruid ²©¿Í×÷Õßuid
 	 * @return
 	 * @throws AppException
 	 */
@@ -1126,8 +1109,8 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–è¯„è®ºåˆ—è¡¨
-	 * @param catalog 1æ–°é—»  2å¸–å­  3åŠ¨å¼¹  4åŠ¨æ€
+	 * »ñÈ¡ÆÀÂÛÁĞ±í
+	 * @param catalog 1ĞÂÎÅ  2Ìû×Ó  3¶¯µ¯  4¶¯Ì¬
 	 * @param id
 	 * @param pageIndex
 	 * @param pageSize
@@ -1152,12 +1135,12 @@ public class ApiClient {
 	}
 	
 	/**
-	 * å‘è¡¨è¯„è®º
-	 * @param catalog 1æ–°é—»  2å¸–å­  3åŠ¨å¼¹  4åŠ¨æ€
-	 * @param id æŸæ¡æ–°é—»ï¼Œå¸–å­ï¼ŒåŠ¨å¼¹çš„id
-	 * @param uid ç”¨æˆ·uid
-	 * @param content å‘è¡¨è¯„è®ºçš„å†…å®¹
-	 * @param isPostToMyZone æ˜¯å¦è½¬å‘åˆ°æˆ‘çš„ç©ºé—´  0ä¸è½¬å‘  1è½¬å‘
+	 * ·¢±íÆÀÂÛ
+	 * @param catalog 1ĞÂÎÅ  2Ìû×Ó  3¶¯µ¯  4¶¯Ì¬
+	 * @param id Ä³ÌõĞÂÎÅ£¬Ìû×Ó£¬¶¯µ¯µÄid
+	 * @param uid ÓÃ»§uid
+	 * @param content ·¢±íÆÀÂÛµÄÄÚÈİ
+	 * @param isPostToMyZone ÊÇ·ñ×ª·¢µ½ÎÒµÄ¿Õ¼ä  0²»×ª·¢  1×ª·¢
 	 * @return
 	 * @throws AppException
 	 */
@@ -1180,12 +1163,12 @@ public class ApiClient {
 
 	/**
 	 * 
-	 * @param id è¡¨ç¤ºè¢«è¯„è®ºçš„æŸæ¡æ–°é—»ï¼Œå¸–å­ï¼ŒåŠ¨å¼¹çš„id æˆ–è€…æŸæ¡æ¶ˆæ¯çš„ friendid 
-	 * @param catalog è¡¨ç¤ºè¯¥è¯„è®ºæ‰€å±ä»€ä¹ˆç±»å‹ï¼š1æ–°é—»  2å¸–å­  3åŠ¨å¼¹  4åŠ¨æ€
-	 * @param replyid è¡¨ç¤ºè¢«å›å¤çš„å•ä¸ªè¯„è®ºid
-	 * @param authorid è¡¨ç¤ºè¯¥è¯„è®ºçš„åŸå§‹ä½œè€…id
-	 * @param uid ç”¨æˆ·uid ä¸€èˆ¬éƒ½æ˜¯å½“å‰ç™»å½•ç”¨æˆ·uid
-	 * @param content å‘è¡¨è¯„è®ºçš„å†…å®¹
+	 * @param id ±íÊ¾±»ÆÀÂÛµÄÄ³ÌõĞÂÎÅ£¬Ìû×Ó£¬¶¯µ¯µÄid »òÕßÄ³ÌõÏûÏ¢µÄ friendid 
+	 * @param catalog ±íÊ¾¸ÃÆÀÂÛËùÊôÊ²Ã´ÀàĞÍ£º1ĞÂÎÅ  2Ìû×Ó  3¶¯µ¯  4¶¯Ì¬
+	 * @param replyid ±íÊ¾±»»Ø¸´µÄµ¥¸öÆÀÂÛid
+	 * @param authorid ±íÊ¾¸ÃÆÀÂÛµÄÔ­Ê¼×÷Õßid
+	 * @param uid ÓÃ»§uid Ò»°ã¶¼ÊÇµ±Ç°µÇÂ¼ÓÃ»§uid
+	 * @param content ·¢±íÆÀÂÛµÄÄÚÈİ
 	 * @return
 	 * @throws AppException
 	 */
@@ -1208,11 +1191,11 @@ public class ApiClient {
 	}
 	
 	/**
-	 * åˆ é™¤è¯„è®º
-	 * @param id è¡¨ç¤ºè¢«è¯„è®ºå¯¹åº”çš„æŸæ¡æ–°é—»,å¸–å­,åŠ¨å¼¹çš„id æˆ–è€…æŸæ¡æ¶ˆæ¯çš„ friendid
-	 * @param catalog è¡¨ç¤ºè¯¥è¯„è®ºæ‰€å±ä»€ä¹ˆç±»å‹ï¼š1æ–°é—»  2å¸–å­  3åŠ¨å¼¹  4åŠ¨æ€&ç•™è¨€
-	 * @param replyid è¡¨ç¤ºè¢«å›å¤çš„å•ä¸ªè¯„è®ºid
-	 * @param authorid è¡¨ç¤ºè¯¥è¯„è®ºçš„åŸå§‹ä½œè€…id
+	 * É¾³ıÆÀÂÛ
+	 * @param id ±íÊ¾±»ÆÀÂÛ¶ÔÓ¦µÄÄ³ÌõĞÂÎÅ,Ìû×Ó,¶¯µ¯µÄid »òÕßÄ³ÌõÏûÏ¢µÄ friendid
+	 * @param catalog ±íÊ¾¸ÃÆÀÂÛËùÊôÊ²Ã´ÀàĞÍ£º1ĞÂÎÅ  2Ìû×Ó  3¶¯µ¯  4¶¯Ì¬&ÁôÑÔ
+	 * @param replyid ±íÊ¾±»»Ø¸´µÄµ¥¸öÆÀÂÛid
+	 * @param authorid ±íÊ¾¸ÃÆÀÂÛµÄÔ­Ê¼×÷Õßid
 	 * @return
 	 * @throws AppException
 	 */
@@ -1233,11 +1216,11 @@ public class ApiClient {
 	}
 	
 	/**
-	 * ç”¨æˆ·æ”¶è—åˆ—è¡¨
-	 * @param uid ç”¨æˆ·UID
-	 * @param type 0:å…¨éƒ¨æ”¶è— 1:è½¯ä»¶ 2:è¯é¢˜ 3:åšå®¢ 4:æ–°é—» 5:ä»£ç 
-	 * @param pageIndex é¡µé¢ç´¢å¼• 0è¡¨ç¤ºç¬¬ä¸€é¡µ
-	 * @param pageSize æ¯é¡µçš„æ•°é‡
+	 * ÓÃ»§ÊÕ²ØÁĞ±í
+	 * @param uid ÓÃ»§UID
+	 * @param type 0:È«²¿ÊÕ²Ø 1:Èí¼ş 2:»°Ìâ 3:²©¿Í 4:ĞÂÎÅ 5:´úÂë
+	 * @param pageIndex Ò³ÃæË÷Òı 0±íÊ¾µÚÒ»Ò³
+	 * @param pageSize Ã¿Ò³µÄÊıÁ¿
 	 * @return
 	 * @throws AppException
 	 */
@@ -1259,10 +1242,10 @@ public class ApiClient {
 	}	
 	
 	/**
-	 * ç”¨æˆ·æ·»åŠ æ”¶è—
-	 * @param uid ç”¨æˆ·UID
-	 * @param objid æ¯”å¦‚æ˜¯æ–°é—»ID æˆ–è€…é—®ç­”ID æˆ–è€…åŠ¨å¼¹ID
-	 * @param type 1:è½¯ä»¶ 2:è¯é¢˜ 3:åšå®¢ 4:æ–°é—» 5:ä»£ç 
+	 * ÓÃ»§Ìí¼ÓÊÕ²Ø
+	 * @param uid ÓÃ»§UID
+	 * @param objid ±ÈÈçÊÇĞÂÎÅID »òÕßÎÊ´ğID »òÕß¶¯µ¯ID
+	 * @param type 1:Èí¼ş 2:»°Ìâ 3:²©¿Í 4:ĞÂÎÅ 5:´úÂë
 	 * @return
 	 * @throws AppException
 	 */
@@ -1282,10 +1265,10 @@ public class ApiClient {
 	}
 	
 	/**
-	 * ç”¨æˆ·åˆ é™¤æ”¶è—
-	 * @param uid ç”¨æˆ·UID
-	 * @param objid æ¯”å¦‚æ˜¯æ–°é—»ID æˆ–è€…é—®ç­”ID æˆ–è€…åŠ¨å¼¹ID
-	 * @param type 1:è½¯ä»¶ 2:è¯é¢˜ 3:åšå®¢ 4:æ–°é—» 5:ä»£ç 
+	 * ÓÃ»§É¾³ıÊÕ²Ø
+	 * @param uid ÓÃ»§UID
+	 * @param objid ±ÈÈçÊÇĞÂÎÅID »òÕßÎÊ´ğID »òÕß¶¯µ¯ID
+	 * @param type 1:Èí¼ş 2:»°Ìâ 3:²©¿Í 4:ĞÂÎÅ 5:´úÂë
 	 * @return
 	 * @throws AppException
 	 */
@@ -1305,9 +1288,9 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è·å–æœç´¢åˆ—è¡¨
-	 * @param catalog å…¨éƒ¨:all æ–°é—»:news  é—®ç­”:post è½¯ä»¶:software åšå®¢:blog ä»£ç :code
-	 * @param content æœç´¢çš„å†…å®¹
+	 * »ñÈ¡ËÑË÷ÁĞ±í
+	 * @param catalog È«²¿:all ĞÂÎÅ:news  ÎÊ´ğ:post Èí¼ş:software ²©¿Í:blog ´úÂë:code
+	 * @param content ËÑË÷µÄÄÚÈİ
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
@@ -1330,8 +1313,8 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è½¯ä»¶åˆ—è¡¨
-	 * @param searchTag è½¯ä»¶åˆ†ç±»  æ¨è:recommend æœ€æ–°:time çƒ­é—¨:view å›½äº§:list_cn
+	 * Èí¼şÁĞ±í
+	 * @param searchTag Èí¼ş·ÖÀà  ÍÆ¼ö:recommend ×îĞÂ:time ÈÈÃÅ:view ¹ú²ú:list_cn
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
@@ -1354,8 +1337,8 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è½¯ä»¶åˆ†ç±»çš„è½¯ä»¶åˆ—è¡¨
-	 * @param searchTag ä»softwarecatalog_listè·å–çš„tag
+	 * Èí¼ş·ÖÀàµÄÈí¼şÁĞ±í
+	 * @param searchTag ´Ósoftwarecatalog_list»ñÈ¡µÄtag
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
@@ -1378,8 +1361,8 @@ public class ApiClient {
 	}
 	
 	/**
-	 * è½¯ä»¶åˆ†ç±»åˆ—è¡¨
-	 * @param tag ç¬¬ä¸€çº§:0  ç¬¬äºŒçº§:tag
+	 * Èí¼ş·ÖÀàÁĞ±í
+	 * @param tag µÚÒ»¼¶:0  µÚ¶ş¼¶:tag
 	 * @return
 	 * @throws AppException
 	 */
@@ -1398,4 +1381,3 @@ public class ApiClient {
 	}
 	
 }
-
