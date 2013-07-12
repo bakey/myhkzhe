@@ -51,8 +51,11 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
+import com.hkzhe.wwtt.common.Utils;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 /**
  * API客户端接口：用于访问网络数据
@@ -165,17 +168,19 @@ public class ApiClient {
 		GetMethod httpGet = null;
 
 		String responseBody = "";
+		//InputStream responseBodyStream = null ;
 		int time = 0;
 		do{
 			try 
 			{
 				httpClient = getHttpClient();
 				httpGet = getHttpGet(url, cookie, userAgent);			
-				int statusCode = httpClient.executeMethod(httpGet);
+				int statusCode = httpClient.executeMethod(httpGet);		
 				if (statusCode != HttpStatus.SC_OK) {
 					throw AppException.http(statusCode);
 				}
-				responseBody = httpGet.getResponseBodyAsString();
+				responseBody = httpGet.getResponseBodyAsString();				
+				//responseBodyStream = httpGet.getResponseBodyAsStream();
 				//System.out.println("XMLDATA=====>"+responseBody);
 				break;				
 			} catch (HttpException e) {
@@ -207,6 +212,7 @@ public class ApiClient {
 			}
 		}while(time < RETRY_TIME);
 		
+		//responseBody = Utils.readStream( responseBodyStream );
 		responseBody = responseBody.replace('', '?');
 		if(responseBody.contains("result") && responseBody.contains("errorCode")){
 			try {
@@ -585,8 +591,8 @@ public class ApiClient {
 	 * @return
 	 * @throws AppException
 	 */
-	public static NewsList getNewsList(AppContext appContext, final int catalog, final int pageIndex, final int pageSize) throws AppException {
-		String newUrl = _MakeURL(URLs.NEWS_LIST, new HashMap<String, Object>(){{
+	public static NewsList getLatestThreadsList(AppContext appContext, final int catalog, final int pageIndex, final int pageSize) throws AppException {
+		String newUrl = _MakeURL(URLs.LATEST_THREADS_LIST, new HashMap<String, Object>(){{
 			put("catalog", catalog);
 			put("pageIndex", pageIndex);
 			put("pageSize", pageSize);
@@ -594,6 +600,20 @@ public class ApiClient {
 		
 		try{
 			return NewsList.parseJSON(http_get(appContext, newUrl));		
+		}catch(Exception e){
+			if(e instanceof AppException)
+				throw (AppException)e;
+			throw AppException.network(e);
+		}
+	}
+	
+	public static News getThreadsDetail(AppContext appContext, final int news_id) throws AppException {
+		String newUrl = _MakeURL(URLs.THREAD_DETAIL, new HashMap<String, Object>(){{
+			put("id", news_id);
+		}});
+		Log.d("bakey" , "thread detail url = " + newUrl );		
+		try{
+			return News.parseJSON(http_get(appContext, newUrl));			
 		}catch(Exception e){
 			if(e instanceof AppException)
 				throw (AppException)e;

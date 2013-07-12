@@ -28,6 +28,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -78,7 +79,7 @@ public class NewsDetail extends Activity {
 	
 	private WebView mWebView;
     private Handler mHandler;
-    private News newsDetail;
+    private News threadsDetail;
     private int newsId;
 	
 	private final static int VIEWSWITCH_TYPE_DETAIL = 0x001;
@@ -242,27 +243,27 @@ public class NewsDetail extends Activity {
 				{	
 					headButtonSwitch(DATA_LOAD_COMPLETE);					
 					
-					mTitle.setText(newsDetail.getTitle());
-					mAuthor.setText(newsDetail.getAuthor());
-					mPubDate.setText(StringUtils.friendly_time(newsDetail.getPubDate()));
-					mCommentCount.setText(String.valueOf(newsDetail.getCommentCount()));
+					mTitle.setText(threadsDetail.getTitle());
+					mAuthor.setText(threadsDetail.getAuthor());
+					mPubDate.setText(StringUtils.friendly_time(threadsDetail.getPubDate()));
+					mCommentCount.setText(String.valueOf(threadsDetail.getCommentCount()));
 					
 					//是否收藏
-					if(newsDetail.getFavorite() == 1)
+					if(threadsDetail.getFavorite() == 1)
 						mFavorite.setImageResource(R.drawable.widget_bar_favorite2);
 					else
 						mFavorite.setImageResource(R.drawable.widget_bar_favorite);
 					
 					//显示评论数
-					if(newsDetail.getCommentCount() > 0){
-						bv_comment.setText(newsDetail.getCommentCount()+"");
+					if(threadsDetail.getCommentCount() > 0){
+						bv_comment.setText(threadsDetail.getCommentCount()+"");
 						bv_comment.show();
 					}else{
 						bv_comment.setText("");
 						bv_comment.hide();
 					}
 					
-					String body = newsDetail.getBody();					
+					String body = threadsDetail.getBody();					
 					//读取用户设置：是否加载文章图片--默认有wifi下始终加载图片
 					boolean isLoadImage;
 					AppContext ac = (AppContext)getApplication();
@@ -285,16 +286,16 @@ public class NewsDetail extends Activity {
 					}
 					
 					//更多关于***软件的信息
-					String softwareName = newsDetail.getSoftwareName(); 
-					String softwareLink = newsDetail.getSoftwareLink(); 
+					String softwareName = threadsDetail.getSoftwareName(); 
+					String softwareLink = threadsDetail.getSoftwareLink(); 
 					if(!StringUtils.isEmpty(softwareName) && !StringUtils.isEmpty(softwareLink))
 						body += String.format("<div id='oschina_software' style='margin-top:8px;color:#FF0000;font-weight:bold'>更多关于:&nbsp;<a href='%s'>%s</a>&nbsp;的详细信息</div>", softwareLink, softwareName);
 					
 					//相关新闻
-					if(newsDetail.getRelatives().size() > 0)
+					if(threadsDetail.getRelatives().size() > 0)
 					{
 						String strRelative = "";
-						for(Relative relative : newsDetail.getRelatives()){
+						for(Relative relative : threadsDetail.getRelatives()){
 							strRelative += String.format("<a href='%s' style='text-decoration:none'>%s</a><p/>", relative.url, relative.title);
 						}
 						body += String.format("<p/><hr/><b>相关资讯</b><div><p/>%s</div>", strRelative);
@@ -302,7 +303,9 @@ public class NewsDetail extends Activity {
 					
 					body += "<div style='margin-bottom: 80px'/>";					
 					
-					mWebView.loadDataWithBaseURL(null, body, "text/html", "utf-8",null);
+					//mWebView.loadDataWithBaseURL(null, body, "text/html", "utf-8",null);
+					//mWebView.loadDataWithBaseURL( "bbs.16fan.com/thread-136926-1-1.html", null , "text/html", "gbk", null );
+					mWebView.loadUrl( "http://bbs.16fan.com/thread-136926-1-1.html" );
 					mWebView.setWebViewClient(UIHelper.getWebViewClient());	
 					
 					//发送通知广播
@@ -336,9 +339,10 @@ public class NewsDetail extends Activity {
 			public void run() {
                 Message msg = new Message();
 				try {
-					newsDetail = ((AppContext)getApplication()).getNews(news_id, isRefresh);
-	                msg.what = (newsDetail!=null && newsDetail.getId()>0) ? 1 : 0;
-	                msg.obj = (newsDetail!=null) ? newsDetail.getNotice() : null;//通知信息
+					threadsDetail = ((AppContext)getApplication()).getThreads(news_id, isRefresh);
+					Log.d( "bakey" , "success get the threads detail ");
+	                msg.what = (threadsDetail!=null && threadsDetail.getId()>0) ? 1 : 0;
+	                msg.obj = (threadsDetail!=null) ? threadsDetail.getNotice() : null;//通知信息
 	            } catch (AppException e) {
 	                e.printStackTrace();
 	            	msg.what = -1;
@@ -409,18 +413,18 @@ public class NewsDetail extends Activity {
 	
 	private View.OnClickListener authorClickListener = new View.OnClickListener() {
 		public void onClick(View v) {				
-			UIHelper.showUserCenter(v.getContext(), newsDetail.getAuthorId(), newsDetail.getAuthor());
+			UIHelper.showUserCenter(v.getContext(), threadsDetail.getAuthorId(), threadsDetail.getAuthor());
 		}
 	};
 	
 	private View.OnClickListener shareClickListener = new View.OnClickListener() {
 		public void onClick(View v) {	
-			if(newsDetail == null){
+			if(threadsDetail == null){
 				UIHelper.ToastMessage(v.getContext(), R.string.msg_read_detail_fail);
 				return;
 			}
 			//分享到
-			UIHelper.showShareDialog(NewsDetail.this, newsDetail.getTitle(), newsDetail.getUrl());
+			UIHelper.showShareDialog(NewsDetail.this, threadsDetail.getTitle(), threadsDetail.getUrl());
 		}
 	};
 	
@@ -446,7 +450,7 @@ public class NewsDetail extends Activity {
 	
 	private View.OnClickListener favoriteClickListener = new View.OnClickListener() {
 		public void onClick(View v) {	
-			if(newsId == 0 || newsDetail == null){
+			if(newsId == 0 || threadsDetail == null){
 				return;
 			}
 			
@@ -462,11 +466,11 @@ public class NewsDetail extends Activity {
 					if(msg.what == 1){
 						Result res = (Result)msg.obj;
 						if(res.OK()){
-							if(newsDetail.getFavorite() == 1){
-								newsDetail.setFavorite(0);
+							if(threadsDetail.getFavorite() == 1){
+								threadsDetail.setFavorite(0);
 								mFavorite.setImageResource(R.drawable.widget_bar_favorite);
 							}else{
-								newsDetail.setFavorite(1);
+								threadsDetail.setFavorite(1);
 								mFavorite.setImageResource(R.drawable.widget_bar_favorite2);
 							}	
 						}
@@ -481,7 +485,7 @@ public class NewsDetail extends Activity {
 					Message msg = new Message();
 					Result res = null;
 					try {
-						if(newsDetail.getFavorite() == 1){
+						if(threadsDetail.getFavorite() == 1){
 							res = ac.delFavorite(uid, newsId, FavoriteList.TYPE_NEWS);
 						}else{
 							res = ac.addFavorite(uid, newsId, FavoriteList.TYPE_NEWS);
@@ -673,8 +677,8 @@ public class NewsDetail extends Activity {
 					}	
 					
 					//评论数更新
-					if(newsDetail != null && lvCommentData.size() > newsDetail.getCommentCount()){
-						newsDetail.setCommentCount(lvCommentData.size());
+					if(threadsDetail != null && lvCommentData.size() > threadsDetail.getCommentCount()){
+						threadsDetail.setCommentCount(lvCommentData.size());
 						bv_comment.setText(lvCommentData.size()+"");
 						bv_comment.show();
 					}
@@ -757,8 +761,8 @@ public class NewsDetail extends Activity {
         	lvCommentAdapter.notifyDataSetChanged();
         	mLvComment.setSelection(0);        	
     		//显示评论数
-            int count = newsDetail.getCommentCount() + 1;
-            newsDetail.setCommentCount(count);
+            int count = threadsDetail.getCommentCount() + 1;
+            threadsDetail.setCommentCount(count);
     		bv_comment.setText(count+"");
     		bv_comment.show();
         }
@@ -824,8 +828,8 @@ public class NewsDetail extends Activity {
 					    	lvCommentAdapter.notifyDataSetChanged();
 					    	mLvComment.setSelection(0);        	
 							//显示评论数
-					        int count = newsDetail.getCommentCount() + 1;
-					        newsDetail.setCommentCount(count);
+					        int count = threadsDetail.getCommentCount() + 1;
+					        threadsDetail.setCommentCount(count);
 							bv_comment.setText(count+"");
 							bv_comment.show();
 							//清除之前保存的编辑内容

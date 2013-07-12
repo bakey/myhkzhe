@@ -382,19 +382,19 @@ public class AppContext extends Application {
 	}
 	
 	/**
-	 * 新闻列表
+	 * 帖子列表
 	 * @param catalog
 	 * @param pageIndex
 	 * @param pageSize
 	 * @return
 	 * @throws ApiException
 	 */
-	public NewsList getNewsList(int catalog, int pageIndex, boolean isRefresh) throws AppException {
+	public NewsList getLatestThreadsList(int catalog, int pageIndex, boolean isRefresh) throws AppException {
 		NewsList list = null;
 		String key = "newslist_"+catalog+"_"+pageIndex+"_"+PAGE_SIZE;
 		if(isNetworkConnected() && (isCacheDataFailure(key) || isRefresh)) {
 			try{
-				list = ApiClient.getNewsList(this, catalog, pageIndex, PAGE_SIZE);
+				list = ApiClient.getLatestThreadsList(this, catalog, pageIndex, PAGE_SIZE);
 				if(list != null && pageIndex == 0){
 					Notice notice = list.getNotice();
 					list.setNotice(null);
@@ -450,69 +450,32 @@ public class AppContext extends Application {
 		return news;		
 	}
 	
-	/**
-	 * 用户博客列表
-	 * @param authoruid
-	 * @param pageIndex
-	 * @return
-	 * @throws AppException
-	 */
-	public BlogList getUserBlogList(int authoruid, String authorname, int pageIndex, boolean isRefresh) throws AppException {
-		BlogList list = null;
-		String key = "userbloglist_"+authoruid+"_"+loginUid+"_"+pageIndex+"_"+PAGE_SIZE;
+	public News getThreads(int thread_id, boolean isRefresh) throws AppException {		
+		News news = null;
+		String key = "news_"+thread_id;
 		if(isNetworkConnected() && (isCacheDataFailure(key) || isRefresh)) {
 			try{
-				list = ApiClient.getUserBlogList(this, authoruid, authorname, loginUid, pageIndex, PAGE_SIZE);
-				if(list != null && pageIndex == 0){
-					Notice notice = list.getNotice();
-					list.setNotice(null);
-					saveObject(list, key);
-					list.setNotice(notice);
+				news = ApiClient.getThreadsDetail(this, thread_id);
+				if(news != null){
+					Notice notice = news.getNotice();
+					news.setNotice(null);
+					saveObject(news, key);
+					news.setNotice(notice);
 				}
 			}catch(AppException e){
-				list = (BlogList)readObject(key);
-				if(list == null)
+				news = (News)readObject(key);
+				if(news == null)
 					throw e;
 			}
 		} else {
-			list = (BlogList)readObject(key);
-			if(list == null)
-				list = new BlogList();
+			news = (News)readObject(key);
+			if(news == null)
+				news = new News();
 		}
-		return list;
+		return news;		
 	}
 	
-	/**
-	 * 博客列表
-	 * @param type 推荐：recommend 最新：latest
-	 * @param pageIndex
-	 * @return
-	 * @throws AppException
-	 */
-	public BlogList getBlogList(String type, int pageIndex, boolean isRefresh) throws AppException {
-		BlogList list = null;
-		String key = "bloglist_"+type+"_"+pageIndex+"_"+PAGE_SIZE;
-		if(isNetworkConnected() && (isCacheDataFailure(key) || isRefresh)) {
-			try{
-				list = ApiClient.getBlogList(this, type, pageIndex, PAGE_SIZE);
-				if(list != null && pageIndex == 0){
-					Notice notice = list.getNotice();
-					list.setNotice(null);
-					saveObject(list, key);
-					list.setNotice(notice);
-				}
-			}catch(AppException e){
-				list = (BlogList)readObject(key);
-				if(list == null)
-					throw e;
-			}
-		} else {
-			list = (BlogList)readObject(key);
-			if(list == null)
-				list = new BlogList();
-		}
-		return list;
-	}
+	
 	
 	/**
 	 * 博客详情

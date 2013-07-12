@@ -58,16 +58,17 @@ public class NewsList extends Entity{
 			//inputStream.read( buffer , 0 , inputStream.available() );
 		    String jstr = Utils.readStream( inputStream ); //new String( buffer );
 			JSONObject json_obj = new JSONObject( jstr );
-			JSONArray alist = json_obj.getJSONArray("AudioList");
+			JSONArray alist = json_obj.getJSONArray("ThreadList");
 			for( int i = 0 ; i < alist.length() ; i ++ ) {
 				JSONObject obj = alist.getJSONObject( i );
 				news = new News();
 				news.id = obj.getInt("id");
 				news.setTitle( obj.getString("title") );
-				news.setUrl( obj.getString("Url") );
+				//news.setUrl( obj.getString("Url") );
 				news.setAuthor( obj.getString("author") );
-				news.setCommentCount( obj.getInt("comment_count") );
-				news.setPubDate( obj.getString("pubDate") );
+				news.setCommentCount( obj.getInt("reply_count") );
+				news.setHitCount( obj.getInt("hit_count"));
+				news.setPubDate( obj.getString("pub_time") );
 				news.getNewType().type = 0 ;
 				newslist.getNewslist().add(news);				    	
 				news = null;

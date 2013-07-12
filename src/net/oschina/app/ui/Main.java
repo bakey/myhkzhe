@@ -406,7 +406,9 @@ public class Main extends Activity {
     	
         //加载数据				
 		if(lvThreadsData.size() == 0) {
-			loadLvThreadsData(curNewsCatalog, 0, lvThreadsHandler, UIHelper.LISTVIEW_ACTION_INIT);
+			loadLvLatestNewsData(curNewsCatalog, 0, lvThreadsHandler, UIHelper.LISTVIEW_ACTION_INIT);
+		}
+		if ( lvRankData.size() == 0 ) {
 		}
 		/*if(lvQuestionData.size() == 0) {
 			loadLvQuestionData(curQuestionCatalog, 0, lvQuestionHandler, UIHelper.LISTVIEW_ACTION_INIT);
@@ -1322,9 +1324,7 @@ public class Main extends Activity {
 						notice = nlist.getNotice();
 						lvNewsSumData = what;
 						lvThreadsData.clear();
-						lvThreadsData.addAll( nlist.getNewslist() );
-						//lvNewsData.clear();//先清除原有数据
-						//lvNewsData.addAll(nlist.getNewslist());
+						lvThreadsData.addAll( nlist.getNewslist() );					
 						break;
 					case UIHelper.LISTVIEW_DATATYPE_BLOG:
 						/*BlogList blist = (BlogList)obj;
@@ -1394,7 +1394,7 @@ public class Main extends Activity {
 				if(action == UIHelper.LISTVIEW_ACTION_REFRESH || action == UIHelper.LISTVIEW_ACTION_SCROLL)
 					isRefresh = true;
 				try {					
-					NewsList list = appContext.getNewsList(catalog, pageIndex, isRefresh);				
+					NewsList list = appContext.getLatestThreadsList(catalog, pageIndex, isRefresh);				
 					msg.what = list.getPageSize();
 					msg.obj = list;
 	            } catch (AppException e) {
@@ -1425,7 +1425,7 @@ public class Main extends Activity {
 				if(action == UIHelper.LISTVIEW_ACTION_REFRESH || action == UIHelper.LISTVIEW_ACTION_SCROLL)
 					isRefresh = true;
 				try {					
-					NewsList list = appContext.getNewsList(catalog, pageIndex, isRefresh);				
+					NewsList list = appContext.getLatestThreadsList(catalog, pageIndex, isRefresh);				
 					msg.what = list.getPageSize();
 					msg.obj = list;
 	            } catch (AppException e) {
@@ -1435,8 +1435,9 @@ public class Main extends Activity {
 	            }
 				msg.arg1 = action;
 				msg.arg2 = UIHelper.LISTVIEW_DATATYPE_NEWS;
-                if(curNewsCatalog == catalog)
+                if(curNewsCatalog == catalog) {
                 	handler.sendMessage(msg);
+                }
 			}
 		}.start();
 	} 
@@ -1465,168 +1466,7 @@ public class Main extends Activity {
 			}
 		}.start();
 	} 
-    /**
-     * 线程加载博客数据
-     * @param catalog 分类
-     * @param pageIndex 当前页数
-     * @param handler 处理器
-     * @param action 动作标识
-     */
-	private void loadLvBlogData(final int catalog,final int pageIndex,final Handler handler,final int action){ 
-		mHeadProgress.setVisibility(ProgressBar.VISIBLE);
-		new Thread(){
-			public void run() {
-				Message msg = new Message();
-				boolean isRefresh = false;
-				if(action == UIHelper.LISTVIEW_ACTION_REFRESH || action == UIHelper.LISTVIEW_ACTION_SCROLL)
-					isRefresh = true;
-				String type = "";
-				switch (catalog) {
-				case BlogList.CATALOG_LATEST:
-					type = BlogList.TYPE_LATEST;
-					break;
-				case BlogList.CATALOG_RECOMMEND:
-					type = BlogList.TYPE_RECOMMEND;
-					break;
-				}
-				try {
-					BlogList list = appContext.getBlogList(type, pageIndex, isRefresh);				
-					msg.what = list.getPageSize();
-					msg.obj = list;
-	            } catch (AppException e) {
-	            	e.printStackTrace();
-	            	msg.what = -1;
-	            	msg.obj = e;
-	            }
-				msg.arg1 = action;
-				msg.arg2 = UIHelper.LISTVIEW_DATATYPE_BLOG;
-                if(curNewsCatalog == catalog)
-                	handler.sendMessage(msg);
-			}
-		}.start();
-	} 
-    /**
-     * 线程加载帖子数据
-     * @param catalog 分类
-     * @param pageIndex 当前页数
-     * @param handler 处理器
-     * @param action 动作标识
-     */
-	private void loadLvQuestionData(final int catalog,final int pageIndex,final Handler handler,final int action){  
-		mHeadProgress.setVisibility(ProgressBar.VISIBLE);
-		new Thread(){
-			public void run() {
-				Message msg = new Message();
-				boolean isRefresh = false;
-				if(action == UIHelper.LISTVIEW_ACTION_REFRESH || action == UIHelper.LISTVIEW_ACTION_SCROLL)
-					isRefresh = true;
-				try {
-					PostList list = appContext.getPostList(catalog, pageIndex, isRefresh);				
-					msg.what = list.getPageSize();
-					msg.obj = list;
-	            } catch (AppException e) {
-	            	e.printStackTrace();
-	            	msg.what = -1;
-	            	msg.obj = e;
-	            }
-				msg.arg1 = action;
-				msg.arg2 = UIHelper.LISTVIEW_DATATYPE_POST;
-				if(curQuestionCatalog == catalog)
-					handler.sendMessage(msg);
-			}
-		}.start();
-	}
-    /**
-     * 线程加载动弹数据
-     * @param catalog -1 热门，0 最新，大于0 某用户的动弹(uid)
-     * @param pageIndex 当前页数
-     * @param handler 处理器
-     * @param action 动作标识
-     */
-	private void loadLvTweetData(final int catalog,final int pageIndex,final Handler handler,final int action){  
-		mHeadProgress.setVisibility(ProgressBar.VISIBLE);
-		new Thread(){
-			public void run() {
-				Message msg = new Message();
-				boolean isRefresh = false;
-				if(action == UIHelper.LISTVIEW_ACTION_REFRESH || action == UIHelper.LISTVIEW_ACTION_SCROLL)
-					isRefresh = true;
-				try {
-					TweetList list = appContext.getTweetList(catalog, pageIndex, isRefresh);				
-					msg.what = list.getPageSize();
-					msg.obj = list;
-	            } catch (AppException e) {
-	            	e.printStackTrace();
-	            	msg.what = -1;
-	            	msg.obj = e;
-	            }
-				msg.arg1 = action;
-				msg.arg2 = UIHelper.LISTVIEW_DATATYPE_TWEET;
-				if(curTweetCatalog == catalog)
-					handler.sendMessage(msg);
-			}
-		}.start();
-	}
-	/**
-	 * 线程加载动态数据
-	 * @param catalog
-	 * @param pageIndex 当前页数
-	 * @param handler
-	 * @param action
-	 */
-	private void loadLvActiveData(final int catalog,final int pageIndex,final Handler handler,final int action){  
-		mHeadProgress.setVisibility(ProgressBar.VISIBLE);
-		new Thread(){
-			public void run() {
-				Message msg = new Message();
-				boolean isRefresh = false;
-				if(action == UIHelper.LISTVIEW_ACTION_REFRESH || action == UIHelper.LISTVIEW_ACTION_SCROLL)
-					isRefresh = true;
-				try {
-					ActiveList list = appContext.getActiveList(catalog, pageIndex, isRefresh);				
-					msg.what = list.getPageSize();
-					msg.obj = list;
-	            } catch (AppException e) {
-	            	e.printStackTrace();
-	            	msg.what = -1;
-	            	msg.obj = e;
-	            }
-				msg.arg1 = action;
-				msg.arg2 = UIHelper.LISTVIEW_DATATYPE_ACTIVE;
-				if(curActiveCatalog == catalog)
-					handler.sendMessage(msg);
-			}
-		}.start();
-	}
-	/**
-	 * 线程加载留言数据
-	 * @param pageIndex 当前页数
-	 * @param handler
-	 * @param action
-	 */
-	private void loadLvMsgData(final int pageIndex,final Handler handler,final int action){  
-		mHeadProgress.setVisibility(ProgressBar.VISIBLE);
-		new Thread(){
-			public void run() {
-				Message msg = new Message();
-				boolean isRefresh = false;
-				if(action == UIHelper.LISTVIEW_ACTION_REFRESH || action == UIHelper.LISTVIEW_ACTION_SCROLL)
-					isRefresh = true;
-				try {
-					MessageList list = appContext.getMessageList(pageIndex, isRefresh);				
-					msg.what = list.getPageSize();
-					msg.obj = list;
-	            } catch (AppException e) {
-	            	e.printStackTrace();
-	            	msg.what = -1;
-	            	msg.obj = e;
-	            }
-				msg.arg1 = action;
-				msg.arg2 = UIHelper.LISTVIEW_DATATYPE_MESSAGE;
-                handler.sendMessage(msg);
-			}
-		}.start();
-	}
+  
 	
 	/**
 	 * 轮询通知信息

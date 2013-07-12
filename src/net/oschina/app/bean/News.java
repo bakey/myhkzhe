@@ -9,9 +9,14 @@ import java.util.List;
 import net.oschina.app.AppException;
 import net.oschina.app.common.StringUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.hkzhe.wwtt.common.Utils;
+
+import android.util.Log;
 import android.util.Xml;
 
 /**
@@ -52,6 +57,7 @@ public class News extends Entity{
 	private String author;
 	private int authorId;
 	private int commentCount;
+	private int hitCount;
 	private String pubDate;
 	private String softwareLink;
 	private String softwareName;
@@ -146,6 +152,33 @@ public class News extends Entity{
 	}
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
+	}
+	public int getHitCount() {
+		return hitCount;
+	}
+	public void setHitCount( int hitCount ) {
+		this.hitCount = hitCount;
+	}
+	public static News parseJSON(InputStream inputStream) throws IOException, AppException {
+		News news = null;
+		try {
+			String jstr = Utils.readStream( inputStream );
+			Log.d( "bakey" , "get json str = " + jstr );
+			JSONObject json_obj = new JSONObject( jstr );
+			news = new News();
+			news.setAuthor( json_obj.getString("Author") );
+			Log.d( "bakey" , "get title = " + json_obj.getString("Author") );
+			news.setTitle( json_obj.getString("Title") );
+			//news.setBody( json_obj.getString("Content") );
+			news.setCommentCount( json_obj.getInt("CommentCount" ) );			
+			
+		}catch( JSONException e ) {
+			e.printStackTrace();
+			throw AppException.xml(e);			
+		}finally {
+			inputStream.close();
+		}
+		return news;
 	}
 	
 	public static News parse(InputStream inputStream) throws IOException, AppException {

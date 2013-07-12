@@ -403,7 +403,7 @@ public class UserCenter extends Activity{
 	
 	//加载博客列表
 	private void loadLvBlogData(final Handler handler, final int pageIndex, final int action){  
-		headButtonSwitch(DATA_LOAD_ING);
+		/*headButtonSwitch(DATA_LOAD_ING);
 		new Thread(){
 				public void run() {
 					Message msg = new Message();
@@ -422,7 +422,7 @@ public class UserCenter extends Activity{
 					msg.arg1 = action;//告知handler当前action
 	                handler.sendMessage(msg);
 				}
-			}.start();
+			}.start();*/
 		}
 	
 	private void loadUserRelation(int relation){

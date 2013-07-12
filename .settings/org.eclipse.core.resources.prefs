@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/com/weibo/net/WeiboDialog.java=UTF-8
+encoding//src/net/oschina/app/AppConfig.java=UTF-8
 encoding//src/net/oschina/app/AppContext.java=UTF-8
 encoding//src/net/oschina/app/AppStart.java=UTF-8
 encoding//src/net/oschina/app/adapter/ListViewNewsAdapter.java=UTF-8
+encoding//src/net/oschina/app/bean/URLs.java=UTF-8
